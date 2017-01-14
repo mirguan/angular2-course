@@ -7,7 +7,7 @@ export class LoggedInGuard implements CanActivate {
     constructor(private router: Router, private loginService: LoginService) { }
 
     public canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): boolean {
-        if (!!this.loginService.loggedIn()) {
+        if (this.loginService.loggedIn()) {
             return true;
         }
 

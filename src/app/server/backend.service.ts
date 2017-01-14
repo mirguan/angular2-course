@@ -1,14 +1,14 @@
-﻿import { BackendUser } from './backend.user';
-﻿import { Course } from '../models/course';
-﻿import { Author } from '../models/author';
+﻿import {Course} from '../models/course';
+import {BackendUser} from './backend.user';
+import {Author} from '../models/author';
 
 export class BackendService {
     users: BackendUser[];
     courses: Course[];
     authors: Author[];
-    cousrseSeed: number;
+    courseSeed: number;
 
-    construcor() {
+    constructor() {
         this.users = [
             new BackendUser(1, 'q', 'q'),
             new BackendUser(2, 'user', 'password')
@@ -27,9 +27,8 @@ export class BackendService {
                 id: 1, title: 'Course 1', description: 'Description 1', date: new Date(2016, 1, 2), duration: 183,
                 authors: [this.authors[0], this.authors[3]]
             })
-        ]
-
-        this.cousrseSeed = this.courses.length + 1;
+        ];
+        this.courseSeed = this.courses.length + 1;
     }
 
     getUser(username: string, password: string): BackendUser {
@@ -37,7 +36,7 @@ export class BackendService {
     }
 
     addCourse(course: Course) {
-        course.id = this.cousrseSeed++;
+        course.id = this.courseSeed++;
         this.courses.push(course);
     }
 }

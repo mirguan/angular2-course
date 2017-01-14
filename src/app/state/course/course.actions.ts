@@ -30,16 +30,15 @@ export class LoadCourseAction implements Action {
     constructor() { }
 }
 
-export class LoadSuccessCourseAction implements Action {
+export class LoadCourseActionSuccess implements Action {
     static Type = action('[Course] Load Success');
 
     type = LoadCourseAction.Type;
     constructor(public payload: Course[]) { }
 }
 
-export type CourseActions
+export type Actions
     = AddCourseAction
     | EditCourseAction
     | DeleteCourseAction
-    | LoadCourseAction
-    | LoadSuccessCourseAction;
+    | LoadCourseAction | LoadCourseActionSuccess;

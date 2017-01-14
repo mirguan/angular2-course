@@ -2,7 +2,7 @@ import { Http, BaseRequestOptions, Response, ResponseOptions, RequestMethod } fr
 import { MockBackend, MockConnection } from '@angular/http/testing';
 import { BackendService } from './backend.service';
 import { User } from '../models/user';
-import { Course } from "../models/course";
+import { Course } from '../models/course';
 
 export let backendProvider = {
     // use fake backend in place of Http service for backend-less development
@@ -23,7 +23,7 @@ export let backendProvider = {
 
                     let user = service.getUser(params.username, params.password);
                     // check user credentials and return fake jwt token if valid
-                    if (user != null) {
+                    if (user !== null) {
                         connection.mockRespond(new Response(
                             new ResponseOptions({ status: 200, body: { token: 'fake-jwt-token', user: <User>user } })
                         ));

@@ -7,5 +7,5 @@ import { CourseService } from '../../course/course.service';
 
 @Injectable()
 export class CourseEffects {
-  constructor(private actions: CourseActions, private courseService: CourseService) { }
+    constructor(private actions: Actions, private courseService: CourseService) { }
 }

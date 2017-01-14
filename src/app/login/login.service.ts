@@ -1,53 +1,52 @@
 import { Injectable } from '@angular/core';
-import { Http, Headers, Response } from '@angular/http';
+import { Http, Response } from '@angular/http';
+import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs/Observable';
-import { User } from "../models/user";
 import 'rxjs/add/operator/map';
+import { User } from '../models/user';
+import { AppState } from '../app.state';
+import * as login from './login.actions';
 
 @Injectable()
 export class LoginService {
-    token: string;
-    user: User;
-
     redirectUrl: string;
 
-    constructor(private http: Http) {
-        let item = JSON.parse(localStorage.getItem('auth_token'));
-        if (item) {
-            this.token = item.token;
-            this.user = item.user;
+    constructor(private http: Http, store: Store<AppState> ) {
+        let user = JSON.parse(localStorage.getItem('auth_token'));
+        if (user) {
+            store.dispatch(new login.loginSuccess(user));
         }
     }
 
-    login(username: string, password: string): Observable<boolean> {
+    login(username: string, password: string): Observable<User> {
         return this.http.post('/api/authenticate', JSON.stringify({ username: username, password: password }))
             .map((response: Response) => {
-                // login successful if there's a jwt token in the response
-                let data = response.json();
-                if (data && data.token) {
-                    // set token property
-                    this.token = data.token;
-                    this.user = data.user;
+                let body = response.json();
+                let user = Object.assign({}, body.user, {token: body.token, password: '*'.repeat(10)});
+                localStorage.setItem('auth_token', JSON.stringify({ user }));
+                return user;
+            })
+            .catch(error => this.handleError(error));
+    }
 
-                    // store username and jwt token in local storage to keep user logged in between page refreshes
-                    localStorage.setItem('auth_token', JSON.stringify({ user: this.user, token: this.token }));
-
-                    // return true to indicate successful login
-                    return true;
-                } else {
-                    // return false to indicate failed login
-                    return false;
-                }
-            });
+    loginSuccess(user: User): User {
+        return user;
     }
 
     logout(): void {
-        this.token = null;
-        this.user = null;
         localStorage.removeItem('auth_token');
     }
 
-    loggedIn(): boolean {
-        return this.token != null;
+    private handleError(error: Response | any): Promise<any> {
+        let errorMessage: string;
+        if (error instanceof Response) {
+            const body = error.json() || '';
+            const err = body.error || JSON.stringify(body);
+            errorMessage = `${error.status} - ${error.statusText || ''} ${err}`;
+        } else {
+            errorMessage = error.message ? error.message : error.toString();
+        }
+        console.error(errorMessage);
+        return Promise.reject(errorMessage);
     }
 }
