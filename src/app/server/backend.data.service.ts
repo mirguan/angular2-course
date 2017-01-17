@@ -1,8 +1,9 @@
 ﻿import {Course} from '../models/course';
 import {BackendUser} from './backend.user';
 import {Author} from '../models/author';
+import {createTsSourceFile} from "angular-cli/utilities/get-dependent-files";
 
-export class BackendService {
+export class BackendDataService {
     users: BackendUser[];
     courses: Course[];
     authors: Author[];
@@ -32,11 +33,36 @@ export class BackendService {
     }
 
     getUser(username: string, password: string): BackendUser {
-        return this.users.filter(user => user.name === username && user.password === password)[0];
+        let items: BackendUser[] = this.users.filter(user => user.name === username && user.password === password);
+        if (items != null && items.length > 0) {
+            return user[0];
+        }
+        return null;
+    }
+
+    getCourses(): Course[] {
+        return this.courses.slice(0);
     }
 
     addCourse(course: Course) {
         course.id = this.courseSeed++;
         this.courses.push(course);
+    }
+
+    getCourse(id: number): Course {
+        return this.courses.filter(course => course.id === id)[0];
+    }
+
+    updateCourse(id: number, source: Course) {
+        let course = getCourse(id);
+        Object.assign(course, source);
+    }
+
+    deleteCourse(id: number) {
+        this.courses.reduce(course => course.id === id);
+    }
+
+    getAuthors(): Author[] {
+        return this.authors.slice(0);
     }
 }

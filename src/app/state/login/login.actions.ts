@@ -37,15 +37,8 @@ export class LogoutSuccess implements Action {
     constructor() { }
 }
 
-export class LogoutFailure implements Action {
-    static Type = action('[Login] Logout Failure');
-
-    type = LogoutFailure.Type;
-    constructor() { }
-}
-
 export type Actions
     = Login | LoginSuccess | LoginFailure
-    | Logout | LoginSuccess | LoginFailure;
+    | Logout | LoginSuccess;
 
 

@@ -1,18 +1,5 @@
-import { User } from '../../models/user';
 import * as login from './login.actions';
-
-export interface LoginState {
-    logging: boolean;
-    loggedIn: boolean;
-    user: User;
-}
-
-const initialState: LoginState = {
-    logging: false,
-    loggedIn: false,
-    user: null
-};
-
+import { LoginState } from './login.state';
 
 export function reducer(state = initialState, action: login.Actions): LoginState {
     switch (action.type) {
@@ -30,7 +17,7 @@ export function reducer(state = initialState, action: login.Actions): LoginState
         }
 
         case login.LogoutSuccess.Type : {
-            return Object.assign({}, initialState);
+            return Object.assign({}, initialLoginState);
         }
 
         default: {

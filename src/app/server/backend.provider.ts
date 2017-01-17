@@ -1,6 +1,6 @@
 import { Http, BaseRequestOptions, Response, ResponseOptions, RequestMethod } from '@angular/http';
 import { MockBackend, MockConnection } from '@angular/http/testing';
-import { BackendService } from './backend.service';
+import { BackendDataService } from './backend.data.service';
 import { User } from '../models/user';
 import { Course } from '../models/course';
 
@@ -9,7 +9,7 @@ export let backendProvider = {
     provide: Http,
     useFactory: (backend: MockBackend, options: BaseRequestOptions) => {
         // configure fake backend
-        let service = new BackendService();
+        let service = new BackendDataService();
 
         backend.connections.subscribe((connection: MockConnection) => {
 
@@ -37,7 +37,7 @@ export let backendProvider = {
                 if (connection.request.url.endsWith('/api/courses') && connection.request.method === RequestMethod.Get) {
                     if (connection.request.headers.get('Authorization') === 'Bearer fake-jwt-token') {
                         connection.mockRespond(new Response(
-                            new ResponseOptions({ status: 200, body: service.courses })
+                            new ResponseOptions({ status: 200, body: service.getCourses() })
                         ));
                     } else {
                         connection.mockRespond(new Response(new ResponseOptions({ status: 401 })));
@@ -59,10 +59,50 @@ export let backendProvider = {
                     return;
                 }
 
+                let courseMatcher = /\/api\/courses\/([0-9]+)/i;
+
+                if (connection.request.url.match(courseMatcher) && connection.request.method === RequestMethod.Get) {
+                    if (connection.request.headers.get('Authorization') === 'Bearer fake-jwt-token') {
+                        let id = c.request.url.match(courseMatcher)[1];
+                        let course: Course = service.getCourse(id);
+                        connection.mockRespond(new Response(
+                            new ResponseOptions({ status: 200, body: course })
+                        ));
+                    } else {
+                        connection.mockRespond(new Response(new ResponseOptions({ status: 401 })));
+                    }
+                    return;
+                }
+
+                if (connection.request.url.match(courseMatcher) && connection.request.method === RequestMethod.Put) {
+                    if (connection.request.headers.get('Authorization') === 'Bearer fake-jwt-token') {
+                        let id = c.request.url.match(courseMatcher)[1];
+                        let course: Course = JSON.parse(connection.request.getBody());
+                        service.updateCourse(id, course);
+                        connection.mockRespond(new Response(new ResponseOptions({ status: 200 })
+                        ));
+                    } else {
+                        connection.mockRespond(new Response(new ResponseOptions({ status: 401 })));
+                    }
+                    return;
+                }
+
+                if (connection.request.url.match(courseMatcher) && connection.request.method === RequestMethod.Delete) {
+                    if (connection.request.headers.get('Authorization') === 'Bearer fake-jwt-token') {
+                        let id = c.request.url.match(courseMatcher)[1];
+                        service.deleteCourse(id);
+                        connection.mockRespond(new Response(new ResponseOptions({ status: 200 })
+                        ));
+                    } else {
+                        connection.mockRespond(new Response(new ResponseOptions({ status: 401 })));
+                    }
+                    return;
+                }
+
                 if (connection.request.url.endsWith('/api/authors') && connection.request.method === RequestMethod.Get) {
                     if (connection.request.headers.get('Authorization') === 'Bearer fake-jwt-token') {
                         connection.mockRespond(new Response(
-                            new ResponseOptions({ status: 200, body: service.authors })
+                            new ResponseOptions({ status: 200, body: service.getAuthors() })
                         ));
                     } else {
                         connection.mockRespond(new Response(new ResponseOptions({ status: 401 })));

@@ -2,24 +2,24 @@ import { Injectable } from '@angular/core';
 import { Http, Response } from '@angular/http';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs/Observable';
-import 'rxjs/add/operator/map';
+import { ConfigService } from '../app.config.service';
 import { User } from '../models/user';
-import { AppState } from '../app.state';
-import * as login from './login.actions';
+import { State } from '../state/state';
+import * as login from '../state/login/login.actions';
 
 @Injectable()
 export class LoginService {
     redirectUrl: string;
 
-    constructor(private http: Http, store: Store<AppState> ) {
+    constructor(private config: ConfigService, private http: Http, store: Store<State> ) {
         let user = JSON.parse(localStorage.getItem('auth_token'));
         if (user) {
-            store.dispatch(new login.loginSuccess(user));
+            store.dispatch(new login.LoginSuccess(user));
         }
     }
 
     login(username: string, password: string): Observable<User> {
-        return this.http.post('/api/authenticate', JSON.stringify({ username: username, password: password }))
+        return this.http.post(`${this.config.apiUrl}/authenticate`, JSON.stringify({ username: username, password: password }))
             .map((response: Response) => {
                 let body = response.json();
                 let user = Object.assign({}, body.user, {token: body.token, password: '*'.repeat(10)});
