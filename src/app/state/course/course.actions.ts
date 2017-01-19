@@ -5,40 +5,48 @@ import { action } from '../action.cache';
 export class AddCourseAction implements Action {
     static Type = action('[Course] Add');
 
-    type = AddCourseAction.Type;
+    type = this.Type;
+    constructor(public payload: Course) { }
+}
+
+export class AddCourseActionSuccess implements Action {
+    static Type = action('[Course] Add Success');
+
+    type = this.Type;
     constructor(public payload: Course) { }
 }
 
 export class EditCourseAction implements Action {
     static Type = action('[Course] Edit');
 
-    type = EditCourseAction.Type;
+    type = this.Type;
     constructor(public payload: Course) { }
 }
+
 
 export class DeleteCourseAction implements Action {
     static Type = action('[Course] Delete');
 
-    type = DeleteCourseAction.Type;
+    type = this.Type;
     constructor(public payload: Course) { }
 }
 
 export class LoadCourseAction implements Action {
     static Type = action('[Course] Load');
 
-    type = LoadCourseAction.Type;
+    type = this.Type;
     constructor() { }
 }
 
 export class LoadCourseActionSuccess implements Action {
     static Type = action('[Course] Load Success');
 
-    type = LoadCourseAction.Type;
+    type = this.Type;
     constructor(public payload: Course[]) { }
 }
 
 export type Actions
-    = AddCourseAction
+    = AddCourseAction | AddCourseActionSuccess
     | EditCourseAction
     | DeleteCourseAction
     | LoadCourseAction | LoadCourseActionSuccess;

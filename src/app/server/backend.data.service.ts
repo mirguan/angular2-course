@@ -44,9 +44,11 @@ export class BackendDataService {
         return this.courses.slice(0);
     }
 
-    addCourse(course: Course) {
+    addCourse(course: Course) : Course {
         course.id = this.courseSeed++;
         this.courses.push(course);
+
+        return course;
     }
 
     getCourse(id: number): Course {

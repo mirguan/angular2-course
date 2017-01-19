@@ -5,9 +5,3 @@ export interface LoginState {
     loggedIn: boolean;
     user: User;
 }
-
-const initialLoginState: LoginState = {
-    logging: false,
-    loggedIn: false,
-    user: null
-};

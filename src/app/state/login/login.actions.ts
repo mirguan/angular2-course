@@ -5,35 +5,35 @@ import { action } from '../action.cache';
 export class Login implements Action {
     static Type = action('[Login] Login');
 
-    type = Login.Type;
+    type = this.Type;
     constructor(public payload: User) { }
 }
 
 export class LoginSuccess implements Action {
     static Type = action('[Login] Login Success');
 
-    type = LoginSuccess.Type;
+    type = this.Type;
     constructor(public payload: User) { }
 }
 
 export class LoginFailure implements Action {
     static Type = action('[Login] Login Failure');
 
-    type = LoginFailure.Type;
+    type = this.Type;
     constructor(public payload: string) { }
 }
 
 export class Logout implements Action {
     static Type = action('[Login] Logout');
 
-    type = Logout.Type;
+    type = this.Type;
     constructor() { }
 }
 
 export class LogoutSuccess implements Action {
     static Type = action('[Login] Logout Success');
 
-    type = LogoutSuccess.Type;
+    type = this.Type;
     constructor() { }
 }
 

@@ -1,24 +1,30 @@
 import * as login from './login.actions';
 import { LoginState } from './login.state';
 
+const initialLoginState: LoginState = {
+    logging: false,
+    loggedIn: false,
+    user: null
+};
+
 export function reducer(state = initialState, action: login.Actions): LoginState {
     switch (action.type) {
 
         case login.Login.Type : {
             return Object.assign({}, state, { logging: true, loggedIn: false, user: (<login.Login>action).payload });
-        }
+        } break;
 
         case login.LoginSuccess.Type : {
-            return Object.assign({}, state, {logging: false, loggedIn: true, user: (<login.LoginSuccess>action).payload});
-        }
+            return Object.assign({}, state, { logging: false, loggedIn: true, user: (<login.LoginSuccess>action).payload });
+        } break;
 
         case login.LoginFailure.Type : {
-            return Object.assign({}, state, {logging: false, loggedIn: false});
-        }
+            return Object.assign({}, state, { logging: false, loggedIn: false });
+        } break;
 
         case login.LogoutSuccess.Type : {
-            return Object.assign({}, initialLoginState);
-        }
+            return Object.assign({}, initialState);
+        } break;
 
         default: {
             return state;

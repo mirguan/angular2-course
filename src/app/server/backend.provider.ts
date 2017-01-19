@@ -49,7 +49,7 @@ export let backendProvider = {
                     if (connection.request.headers.get('Authorization') === 'Bearer fake-jwt-token') {
                         let course: Course = JSON.parse(connection.request.getBody());
 
-                        service.addCourse(course);
+                        course = service.addCourse(course);
                         connection.mockRespond(new Response(
                             new ResponseOptions({ status: 201, body: course.id })
                         ));
