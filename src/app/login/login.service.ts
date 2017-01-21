@@ -1,16 +1,14 @@
 import { Injectable } from '@angular/core';
 import { Http, Response } from '@angular/http';
 import { Store } from '@ngrx/store';
-import { Observable } from 'rxjs/Observable';
+import { Observable } from 'rxjs/Rx';
 import { ConfigService } from '../app.config.service';
 import { User } from '../models/user';
-import { State } from '../state/state';
+import { State } from '../state/app.state';
 import * as login from '../state/login/login.actions';
 
 @Injectable()
 export class LoginService {
-    redirectUrl: string;
-
     constructor(private config: ConfigService, private http: Http, store: Store<State> ) {
         let user = JSON.parse(localStorage.getItem('auth_token'));
         if (user) {

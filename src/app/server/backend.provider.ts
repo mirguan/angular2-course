@@ -63,7 +63,7 @@ export let backendProvider = {
 
                 if (connection.request.url.match(courseMatcher) && connection.request.method === RequestMethod.Get) {
                     if (connection.request.headers.get('Authorization') === 'Bearer fake-jwt-token') {
-                        let id = c.request.url.match(courseMatcher)[1];
+                        let id: number = Number(connection.request.url.match(courseMatcher)[1]);
                         let course: Course = service.getCourse(id);
                         connection.mockRespond(new Response(
                             new ResponseOptions({ status: 200, body: course })
@@ -76,7 +76,7 @@ export let backendProvider = {
 
                 if (connection.request.url.match(courseMatcher) && connection.request.method === RequestMethod.Put) {
                     if (connection.request.headers.get('Authorization') === 'Bearer fake-jwt-token') {
-                        let id = c.request.url.match(courseMatcher)[1];
+                        let id: number = Number(connection.request.url.match(courseMatcher)[1]);
                         let course: Course = JSON.parse(connection.request.getBody());
                         service.updateCourse(id, course);
                         connection.mockRespond(new Response(new ResponseOptions({ status: 200 })
@@ -89,7 +89,7 @@ export let backendProvider = {
 
                 if (connection.request.url.match(courseMatcher) && connection.request.method === RequestMethod.Delete) {
                     if (connection.request.headers.get('Authorization') === 'Bearer fake-jwt-token') {
-                        let id = c.request.url.match(courseMatcher)[1];
+                        let id: number = Number(connection.request.url.match(courseMatcher)[1]);
                         service.deleteCourse(id);
                         connection.mockRespond(new Response(new ResponseOptions({ status: 200 })
                         ));

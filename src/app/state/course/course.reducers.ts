@@ -35,6 +35,5 @@ export function reducer(state = initialState, action: login.Actions): CourseStat
     }
 }
 
-export const getLoading = (state: CourseState) => state.logging;
-
-export const getIds = (state: CourseState) => state.courses;
+export const getLoading = (state: CourseState) => state.loading;
+export const getCourses = (state: CourseState) => state.courses;

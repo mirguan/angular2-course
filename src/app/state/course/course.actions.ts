@@ -5,21 +5,21 @@ import { action } from '../action.cache';
 export class AddCourseAction implements Action {
     static Type = action('[Course] Add');
 
-    type = this.Type;
+    type = AddCourseAction.Type;
     constructor(public payload: Course) { }
 }
 
 export class AddCourseActionSuccess implements Action {
     static Type = action('[Course] Add Success');
 
-    type = this.Type;
+    type = AddCourseActionSuccess.Type;
     constructor(public payload: Course) { }
 }
 
 export class EditCourseAction implements Action {
     static Type = action('[Course] Edit');
 
-    type = this.Type;
+    type = EditCourseAction.Type;
     constructor(public payload: Course) { }
 }
 
@@ -27,21 +27,21 @@ export class EditCourseAction implements Action {
 export class DeleteCourseAction implements Action {
     static Type = action('[Course] Delete');
 
-    type = this.Type;
+    type = DeleteCourseAction.Type;
     constructor(public payload: Course) { }
 }
 
 export class LoadCourseAction implements Action {
     static Type = action('[Course] Load');
 
-    type = this.Type;
+    type = LoadCourseAction.Type;
     constructor() { }
 }
 
 export class LoadCourseActionSuccess implements Action {
     static Type = action('[Course] Load Success');
 
-    type = this.Type;
+    type = LoadCourseActionSuccess.Type;
     constructor(public payload: Course[]) { }
 }
 

@@ -35,7 +35,7 @@ export class BackendDataService {
     getUser(username: string, password: string): BackendUser {
         let items: BackendUser[] = this.users.filter(user => user.name === username && user.password === password);
         if (items != null && items.length > 0) {
-            return user[0];
+            return items[0];
         }
         return null;
     }
@@ -56,12 +56,12 @@ export class BackendDataService {
     }
 
     updateCourse(id: number, source: Course) {
-        let course = getCourse(id);
+        let course = this.getCourse(id);
         Object.assign(course, source);
     }
 
     deleteCourse(id: number) {
-        this.courses.reduce(course => course.id === id);
+        this.courses.filter(course => course.id !== id);
     }
 
     getAuthors(): Author[] {

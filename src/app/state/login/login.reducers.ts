@@ -3,12 +3,17 @@ import { LoginState } from './login.state';
 
 const initialLoginState: LoginState = {
     logging: false,
+    redirectUrl: null,
     loggedIn: false,
     user: null
 };
 
 export function reducer(state = initialState, action: login.Actions): LoginState {
     switch (action.type) {
+
+        case login.LoginRedirect.Type : {
+            return Object.assign({}, state, { redirectUrl: action.payload });
+        } break;
 
         case login.Login.Type : {
             return Object.assign({}, state, { logging: true, loggedIn: false, user: (<login.Login>action).payload });
@@ -33,7 +38,6 @@ export function reducer(state = initialState, action: login.Actions): LoginState
 }
 
 export const getLogging = (state: LoginState) => state.logging;
-
+export const getRedirectUrl = (state: LoginState) => state.redirectUrl;
 export const getLoggedIn = (state: LoginState) => state.loggedIn;
-
 export const getUser = (state: LoginState) => state.user;
