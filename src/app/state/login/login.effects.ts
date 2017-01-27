@@ -1,9 +1,9 @@
 /* tslint:disable:member-ordering */
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
-import { Action} from '@ngrx/store';
+import { Action } from '@ngrx/store';
 import { Effect, Actions } from '@ngrx/effects';
-import { LoginService } from '../../login/login.service';
+import { LoginService } from '../../services/login.service';
 import { User } from '../../models/user';
 import * as login from './login.actions';
 
@@ -14,15 +14,13 @@ export class LoginEffects {
     @Effect()
     login$: Observable<Action> = this.actions
         .ofType(login.Login.Type)
-        .map(action => action.payload)
-        .switchMap(user => this.loginService.login(user.username, user.password)
-            .map(data => {
-                return new login.LoginSuccess(this.loginService.logginSuccess(<User>data));
-            })
+        .map(action => <User>action.payload)
+        .switchMap(user => this.loginService.login(user.name, user.password)
+            .map(data => new login.LoginSuccess(data))
             .catch((error) => Observable.of(new login.LoginFailure(error)))
         );
 
-    @Effect
+    @Effect()
     logout$: Observable<Action> = this.actions
         .ofType(login.Logout.Type)
         .switchMap(() => Observable.of(this.loginService.logout())

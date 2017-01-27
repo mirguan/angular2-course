@@ -23,11 +23,17 @@ export class EditCourseAction implements Action {
     constructor(public payload: Course) { }
 }
 
-
 export class DeleteCourseAction implements Action {
     static Type = action('[Course] Delete');
 
     type = DeleteCourseAction.Type;
+    constructor(public payload: Course) { }
+}
+
+export class DeleteCourseActionSuccess implements Action {
+    static Type = action('[Course] Delete Success');
+
+    type = DeleteCourseActionSuccess.Type;
     constructor(public payload: Course) { }
 }
 
@@ -45,8 +51,8 @@ export class LoadCourseActionSuccess implements Action {
     constructor(public payload: Course[]) { }
 }
 
-export type Actions
+export type CourseActions
     = AddCourseAction | AddCourseActionSuccess
     | EditCourseAction
-    | DeleteCourseAction
+    | DeleteCourseAction | DeleteCourseActionSuccess
     | LoadCourseAction | LoadCourseActionSuccess;

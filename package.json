@@ -15,18 +15,18 @@
         "get-node-version": "node -v",
         "update-npm": "npm install npm@latest -g",
         "check-packages-updates": "ncu --packageFile package.json",
-        "update-packages": "ncu -u --packageFile package.json"
+        "update-packages": "ncu -u -a --packageFile package.json"
     },
     "private": true,
     "dependencies": {
-        "@angular/common": "^2.4.3",
-        "@angular/compiler": "^2.4.3",
-        "@angular/core": "^2.4.3",
-        "@angular/forms": "^2.4.3",
-        "@angular/http": "^2.4.3",
-        "@angular/platform-browser": "^2.4.3",
-        "@angular/platform-browser-dynamic": "^2.4.3",
-        "@angular/router": "^3.4.3",
+        "@angular/common": "^2.4.5",
+        "@angular/compiler": "^2.4.5",
+        "@angular/core": "^2.4.5",
+        "@angular/forms": "^2.4.5",
+        "@angular/http": "^2.4.5",
+        "@angular/platform-browser": "^2.4.5",
+        "@angular/platform-browser-dynamic": "^2.4.5",
+        "@angular/router": "^3.4.5",
         "@types/node": "^6.0.58",
         "@ngrx/core": "^1.2.0",
         "@ngrx/effects": "^2.0.0",
@@ -35,14 +35,14 @@
         "core-js": "^2.4.1",
         "rxjs": "^5.0.3",
         "ts-helpers": "^1.1.2",
-        "tslint": "^4.3.1",
-        "zone.js": "^0.7.5"
+        "tslint": "^4.4.2",
+        "zone.js": "^0.7.6"
     },
     "devDependencies": {
-        "@angular/compiler-cli": "^2.4.3",
-        "@angular/language-service": "^2.4.3",
+        "@angular/compiler-cli": "^2.4.5",
+        "@angular/language-service": "^2.4.5",
         "@types/jasmine": "2.5.41",
-        "@types/node": "^7.0.0",
+        "@types/node": "^7.0.4",
         "angular-cli": "1.0.0-beta.26",
         "codelyzer": "~2.0.0-beta.4",
         "jasmine-core": "2.5.2",
@@ -54,7 +54,7 @@
         "karma-remap-istanbul": "^0.4.0",
         "protractor": "~5.0.0",
         "ts-node": "2.0.0",
-        "tslint": "^4.3.1",
+        "tslint": "^4.4.2",
         "typescript": "~2.1.5"
     }
 }

@@ -1,3 +1,4 @@
+import { ActionReducer } from '@ngrx/store';
 import * as course from './course.actions';
 import { CourseState } from './course.state';
 import { Course } from '../../models/course';
@@ -7,33 +8,24 @@ const initialState: CourseState = {
     courses: []
 };
 
-export function reducer(state = initialState, action: login.Actions): CourseState {
+export const reducer:  ActionReducer<CourseState> = (state: CourseState = initialState, action: course.CourseActions): CourseState => {
     switch (action.type) {
 
-        case course.LoadCourseAction.Type : {
+        case course.LoadCourseAction.Type:
             return Object.assign({}, state, { loading: true });
-        } break;
 
-        case course.LoadCourseActionSuccess.Type : {
-            let courses: Course[] = action.payload;
-            return Object.assign({}, state, { loading: false, courses: courses });
-        } break;
+        case course.LoadCourseActionSuccess.Type:
+            return Object.assign({}, state, { loading: false, courses: (<course.LoadCourseActionSuccess>action).payload });
 
-        case course.AddCourseActionSucess.Type : {
-            let course: Course = action.payload;
-            return Object.assign({}, state, { courses: [...state.courses, course] });
-        } break;
+        case course.AddCourseActionSuccess.Type:
+            return Object.assign({}, state, {
+                courses: [...state.courses, (<course.AddCourseActionSuccess>action).payload]});
 
-        case course.DeleteCourseAction.Type : {
-            let course: Course = action.payload;
-            return Object.assign({}, state, { courses: state.courses.filter( item => item.id !== course.id) });
-        } break;
+        case course.DeleteCourseActionSuccess.Type:
+            let data: Course = (<course.DeleteCourseAction>action).payload;
+            return Object.assign({}, state, { courses: state.courses.filter( item => item.id !== data.id) });
 
-        default: {
+        default:
             return state;
-        }
     }
-}
-
-export const getLoading = (state: CourseState) => state.loading;
-export const getCourses = (state: CourseState) => state.courses;
+};

@@ -9,13 +9,13 @@ import { EffectsModule } from '@ngrx/effects';
 
 import { AppComponent } from './app.component';
 import { appRoutes } from './app.routing';
-import { LoggedInGuard } from './login/login.guard';
-import { LoginService } from './login/login.service';
-import { CourseService } from './course/course.service';
+import { LoggedInGuard } from './components/login/login.guard';
+import { LoginService } from './services/login.service';
+import { CourseService } from './services/course.service';
 
 import { backendProvider } from './server/backend.provider';
-import { appReducer, CourseEffects, LoginEffects } from './state/.index';
-import {AppEffects} from "./state/app.effects";
+import { appReducer, CourseEffects, LoginEffects, AppEffects } from './state/index';
+import { ComponentsModule } from './components';
 
 @NgModule({
     declarations: [
@@ -26,10 +26,11 @@ import {AppEffects} from "./state/app.effects";
         FormsModule,
         HttpModule,
         RouterModule.forRoot(appRoutes, {useHash: false}),
-        StoreModule.provideStore(appReducer()),
+        StoreModule.provideStore(appReducer),
         EffectsModule.run(LoginEffects),
         EffectsModule.run(CourseEffects),
         EffectsModule.run(AppEffects),
+        ComponentsModule
     ],
     providers: [
         LoggedInGuard,
@@ -39,6 +40,8 @@ import {AppEffects} from "./state/app.effects";
         MockBackend,
         BaseRequestOptions
     ],
-    bootstrap: [AppComponent]
+    bootstrap: [
+        AppComponent
+    ]
 })
 export class AppModule { }

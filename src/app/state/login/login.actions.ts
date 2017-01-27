@@ -5,15 +5,8 @@ import { action } from '../action.cache';
 export class LoginRedirect implements Action {
     static Type = action('[Login] Login Redirect');
 
-    type = Login.LoginRedirect;
-    constructor(public payload: redirectUrl) { }
-}
-
-export class Login implements Action {
-    static Type = action('[Login] Login');
-
-    type = Login.Type;
-    constructor(public payload: User) { }
+    type = LoginRedirect.Type;
+    constructor(public payload: string) { }
 }
 
 export class Login implements Action {
@@ -28,6 +21,13 @@ export class LoginSuccess implements Action {
 
     type = LoginSuccess.Type;
     constructor(public payload: User) { }
+}
+
+export class LoginRedirectCleanup implements Action {
+    static Type = action('[Login] Login Success');
+
+    type = LoginRedirectCleanup.Type;
+    constructor() { }
 }
 
 export class LoginFailure implements Action {
@@ -51,9 +51,9 @@ export class LogoutSuccess implements Action {
     constructor() { }
 }
 
-export type Actions
+export type LoginActions
     = LoginRedirect | Login
-    | LoginSuccess | LoginFailure
+    | LoginSuccess | LoginFailure | LoginRedirectCleanup
     | Logout | LoginSuccess;
 
 

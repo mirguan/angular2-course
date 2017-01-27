@@ -2,24 +2,34 @@
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { Observable } from 'rxjs/Observable';
-import {Action, Store} from '@ngrx/store';
+import { Action, Store} from '@ngrx/store';
 import { Effect, Actions } from '@ngrx/effects';
-import { AppState, getLoginLoggedIn } from '../.index';
-import * as login from './login.actions';
-import {getRedirectUrl} from "./login/login.reducers";
+import { AppState } from './app.state';
+import { getLoginRedirectUrl } from './app.reducers';
+import * as login from './login/login.actions';
 
 @Injectable()
 export class AppEffects {
     constructor(private actions: Actions, private router: Router, private store: Store<AppState>) { }
 
     @Effect()
-    loginRedirect$: Observable<boolean> = this.actions
+    loginRedirect$ = this.actions
         .ofType(login.LoginRedirect.Type)
-        .do (() =>  this.router.navigate('/login'));
+        .do(() => this.redirect('/login'))
+        .ignoreElements();
 
-    @Effect
-    loginSuccess$: Observable<boolean> = this.actions
+    @Effect()
+    loginSuccess$: Observable<Action> = this.actions
         .ofType(login.LoginSuccess.Type)
-        .map(() => this.store.let(getRedirectUrl()).take(1))
-        .do ((url) =>  this.router.navigate(url));
+        .withLatestFrom(this.store.select(getLoginRedirectUrl))
+        .map(([, url]) => url)
+        .switchMap(url => this.redirect(url)
+            .map(() => new login.LoginRedirectCleanup()));
+
+    private redirect(url: string): Observable<boolean> {
+        if (url !== null && url !== '') {
+            return Observable.fromPromise(this.router.navigate([url]));
+        }
+        return Observable.of(true);
+    }
 }
