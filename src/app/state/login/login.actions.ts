@@ -24,7 +24,7 @@ export class LoginSuccess implements Action {
 }
 
 export class LoginRedirectCleanup implements Action {
-    static Type = action('[Login] Login Success');
+    static Type = action('[Login] Login Redirect Cleanup');
 
     type = LoginRedirectCleanup.Type;
     constructor() { }

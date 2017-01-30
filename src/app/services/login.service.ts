@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { Http, Response } from '@angular/http';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs/Rx';
-import { ConfigService } from '../app.config.service';
+import { AppConfigService } from '../app.config.service';
 import { User } from '../models/user';
 import { AppState } from '../state/app.state';
 import * as login from '../state/login/login.actions';
@@ -22,7 +22,7 @@ export class LoginService {
         return Promise.reject(errorMessage);
     }
 
-    constructor(private config: ConfigService, private http: Http, store: Store<AppState> ) {
+    constructor(private config: AppConfigService, private http: Http, store: Store<AppState> ) {
         let user = JSON.parse(localStorage.getItem('auth_token'));
         if (user) {
             store.dispatch(new login.LoginSuccess(user));

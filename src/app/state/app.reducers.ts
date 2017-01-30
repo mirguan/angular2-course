@@ -1,5 +1,8 @@
 import { createSelector } from 'reselect';
-import { combineReducers } from '@ngrx/store';
+import { combineReducers, ActionReducer } from '@ngrx/store';
+import { compose } from '@ngrx/core/compose';
+import { storeFreeze } from 'ngrx-store-freeze';
+import { environment } from '../../environments/environment';
 import { AppState } from './app.state';
 import { LoginState } from './login/login.state';
 import { CourseState } from './course/course.state';
@@ -11,9 +14,16 @@ const reducers = {
     course: course.reducer
 };
 
+const developmentReducer: ActionReducer<AppState> = compose(storeFreeze, combineReducers)(reducers);
+const productionReducer: ActionReducer<AppState> = combineReducers(reducers);
+
 export function appReducer(state: any, action: any) {
-    return combineReducers(reducers);
-};
+    if (environment.production) {
+        return productionReducer(state, action);
+    } else {
+        return developmentReducer(state, action);
+    }
+}
 
 export const getLogging = (state: LoginState) => state.logging;
 export const getRedirectUrl = (state: LoginState) => state.redirectUrl;

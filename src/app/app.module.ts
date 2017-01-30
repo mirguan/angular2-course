@@ -2,18 +2,19 @@
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
+
 import { HttpModule, BaseRequestOptions } from '@angular/http';
 import { MockBackend } from '@angular/http/testing';
 import { StoreModule } from '@ngrx/store';
 import { EffectsModule } from '@ngrx/effects';
 
-import { AppComponent } from './app.component';
-import { appRoutes } from './app.routing';
+import { AppConfigService, AppComponent, appRoutes } from './';
+
 import { LoggedInGuard } from './components/login/login.guard';
 import { LoginService } from './services/login.service';
 import { CourseService } from './services/course.service';
 
-import { backendProvider } from './server/backend.provider';
+import { BackendProvider } from './server';
 import { appReducer, CourseEffects, LoginEffects, AppEffects } from './state/index';
 import { ComponentsModule } from './components';
 
@@ -33,10 +34,11 @@ import { ComponentsModule } from './components';
         ComponentsModule
     ],
     providers: [
+        AppConfigService,
         LoggedInGuard,
         LoginService,
         CourseService,
-        backendProvider,
+        BackendProvider,
         MockBackend,
         BaseRequestOptions
     ],

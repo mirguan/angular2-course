@@ -1,14 +1,15 @@
+import { FactoryProvider } from '@angular/core';
 import { Http, BaseRequestOptions, Response, ResponseOptions, RequestMethod } from '@angular/http';
 import { MockBackend, MockConnection } from '@angular/http/testing';
 import { BackendDataService } from './backend.data.service';
 import { User } from '../models/user';
 import { Course } from '../models/course';
 
-export let backendProvider = {
-    // use fake backend in place of Http service for backend-less development
-    provide: Http,
-    useFactory: (backend: MockBackend, options: BaseRequestOptions) => {
-        // configure fake backend
+export class BackendProvider implements FactoryProvider {
+    provide: Http;
+    //noinspection SpellCheckingInspection
+    deps: [MockBackend, BaseRequestOptions];
+    useFactory(backend: MockBackend, options: BaseRequestOptions): Http {
         let service = new BackendDataService();
 
         backend.connections.subscribe((connection: MockConnection) => {
@@ -114,6 +115,5 @@ export let backendProvider = {
         });
 
         return new Http(backend, options);
-    },
-    deps: [MockBackend, BaseRequestOptions]
-};
+    };
+}

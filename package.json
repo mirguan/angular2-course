@@ -6,6 +6,7 @@
     "scripts": {
         "ng": "ng",
         "build": "ng build",
+        "build-prod": "ng build --env=prod",
         "start": "ng serve",
         "lint": "tslint \"src/**/*.ts\"",
         "test": "ng test",
@@ -47,14 +48,16 @@
         "codelyzer": "~2.0.0-beta.4",
         "jasmine-core": "2.5.2",
         "jasmine-spec-reporter": "3.2.0",
-        "karma": "1.4.0",
+        "karma": "1.4.1",
         "karma-chrome-launcher": "^2.0.0",
         "karma-cli": "^1.0.1",
         "karma-jasmine": "^1.1.0",
         "karma-remap-istanbul": "^0.4.0",
+        "ngrx-store-freeze": "^0.1.6",
         "protractor": "~5.0.0",
         "ts-node": "2.0.0",
         "tslint": "^4.4.2",
-        "typescript": "~2.1.5"
+        "typescript": "~2.1.5",
+        "npm-check-updates": "^2.8.9"
     }
 }

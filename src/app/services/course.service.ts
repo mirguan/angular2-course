@@ -2,11 +2,11 @@ import { Injectable } from '@angular/core';
 import { Http, Response } from '@angular/http';
 import { Observable } from 'rxjs/Observable';
 import { Course } from '../models/course';
-import { ConfigService } from '../app.config.service';
+import { AppConfigService } from '../app.config.service';
 
 @Injectable()
 export class CourseService {
-    constructor(private config: ConfigService, private http: Http) {
+    constructor(private config: AppConfigService, private http: Http) {
     }
 
     load(): Observable<Course[]> {

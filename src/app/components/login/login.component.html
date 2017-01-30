@@ -1,0 +1,10 @@
+<h1>
+    <div *ngIf="!(loggedIn | async)">
+        <a>Log in</a>
+        <a>Bzzz {{title}}</a>
+    </div>
+    <div *ngIf="loggedIn$ | async">
+        <a>Hello My Friend!</a>
+        <a>Bzzz {{title}}</a>
+    </div>
+</h1>

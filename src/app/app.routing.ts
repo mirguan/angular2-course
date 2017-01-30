@@ -5,8 +5,8 @@ import { CourseComponent } from './components/course';
 
 export const appRoutes: Routes = [
     { path: '', redirectTo: '/courses', pathMatch: 'full' },
-    { path: 'courses/:id', component: CourseComponent, canActivate: [LoggedInGuard] },
     { path: 'courses', component: CourseListComponent, canActivate: [LoggedInGuard] },
+    { path: 'courses/:id', component: CourseComponent, canActivate: [LoggedInGuard] },
     { path: 'login', component: LoginComponent },
     { path: '**', redirectTo: '/courses' }
 ];
