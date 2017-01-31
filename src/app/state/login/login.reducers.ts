@@ -1,4 +1,3 @@
-import { createSelector } from 'reselect';
 import { ActionReducer } from '@ngrx/store';
 import * as login from './login.actions';
 import { LoginState } from './login.state';
@@ -7,7 +6,7 @@ const initialState: LoginState = {
     logging: false,
     redirectUrl: null,
     loggedIn: false,
-    user: null
+    user: null,
 };
 
 export const reducer: ActionReducer<LoginState> = (state: LoginState = initialState, action: login.LoginActions): LoginState => {

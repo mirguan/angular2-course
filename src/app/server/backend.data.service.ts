@@ -1,7 +1,6 @@
 ﻿import {Course} from '../models/course';
 import {BackendUser} from './backend.user';
 import {Author} from '../models/author';
-import {createTsSourceFile} from "angular-cli/utilities/get-dependent-files";
 
 export class BackendDataService {
     users: BackendUser[];
@@ -44,7 +43,7 @@ export class BackendDataService {
         return this.courses.slice(0);
     }
 
-    addCourse(course: Course) : Course {
+    addCourse(course: Course): Course {
         course.id = this.courseSeed++;
         this.courses.push(course);
 

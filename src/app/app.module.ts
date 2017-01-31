@@ -17,14 +17,14 @@ import { BackendProvider } from './server';
 import { appReducer, CourseEffects, LoginEffects, AppEffects } from './state/index';
 import { ComponentsModule } from './components';
 
-import { CourseSelectedComponent } from './components/course/course-selected.component';
-import { CourseComponent } from './components/course/course.component';
+import * as course from './components/course';
 
 @NgModule({
     declarations: [
         AppComponent,
-        CourseSelectedComponent,
-        CourseComponent,
+        course.CourseEditComponent,
+        course.CourseSelectedComponent,
+        course.CourseComponent,
     ],
     imports: [
         BrowserModule,

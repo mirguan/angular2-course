@@ -6,10 +6,12 @@ import { environment } from '../../environments/environment';
 import { AppState } from './app.state';
 import * as login from './login/login.reducers';
 import * as course from './course/course.reducers';
+import * as error from './error/error.reducers';
 
 const reducers = {
     login: login.reducer,
-    course: course.reducer
+    course: course.reducer,
+    error: error.reducer
 };
 
 const developmentReducer: ActionReducer<AppState> = compose(storeFreeze, combineReducers)(reducers);
@@ -36,3 +38,6 @@ export const getLoading = createSelector(getCourseState, course.getLoading);
 export const getCourses = createSelector(getCourseState, course.getCourses);
 export const getSelectedCourseId = createSelector(getCourseState, course.getSelectedCourseId);
 export const getSelectedCourse = createSelector(getCourseState, course.getSelectedCourse);
+
+export const getErrorState = (state: AppState) => state.error;
+export const getErrorMessage = createSelector(getErrorState, error.getErrorMessage);
