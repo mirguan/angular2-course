@@ -1,3 +1,4 @@
+import { createSelector } from 'reselect';
 import { ActionReducer } from '@ngrx/store';
 import * as login from './login.actions';
 import { LoginState } from './login.state';
@@ -34,3 +35,10 @@ export const reducer: ActionReducer<LoginState> = (state: LoginState = initialSt
             return state;
     }
 };
+
+export const getLogging = (state: LoginState) => state.logging;
+export const getRedirectUrl = (state: LoginState) => state.redirectUrl;
+export const getLoggedIn = (state: LoginState) => state.loggedIn;
+export const getUser = (state: LoginState) => state.user;
+
+

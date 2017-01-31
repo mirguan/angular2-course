@@ -1,9 +1,8 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import * as login from './login/index';
-import { CourseListComponent } from './course-list/index';
-import { CourseComponent } from './course/index';
+import * as login from './login';
+import * as courses from './course-list';
 
 @NgModule({
     imports: [
@@ -12,16 +11,12 @@ import { CourseComponent } from './course/index';
     ],
     declarations: [
         login.LoginComponent,
-        CourseListComponent,
-        CourseComponent
+        courses.CourseListComponent,
     ],
     exports: [
         CommonModule,
         FormsModule,
         login.LoginComponent
-    ],
-    providers: [
-        login.LoggedInGuard
     ]
 })
 export class ComponentsModule {}

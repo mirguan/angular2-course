@@ -16,10 +16,24 @@ export class AddCourseActionSuccess implements Action {
     constructor(public payload: Course) { }
 }
 
-export class EditCourseAction implements Action {
+export class SelectCourse implements Action {
+    static Type = action('[Course] Select');
+
+    type = SelectCourse.Type;
+    constructor(public payload: string) { }
+}
+
+export class CleanCourseSelection implements Action {
+    static Type = action('[Course] Clean Selection');
+
+    type = CleanCourseSelection.Type;
+    constructor(public payload: string) { }
+}
+
+export class SaveCourseAction implements Action {
     static Type = action('[Course] Edit');
 
-    type = EditCourseAction.Type;
+    type = SaveCourseAction.Type;
     constructor(public payload: Course) { }
 }
 
@@ -53,6 +67,7 @@ export class LoadCourseActionSuccess implements Action {
 
 export type CourseActions
     = AddCourseAction | AddCourseActionSuccess
-    | EditCourseAction
+    | SaveCourseAction
     | DeleteCourseAction | DeleteCourseActionSuccess
-    | LoadCourseAction | LoadCourseActionSuccess;
+    | LoadCourseAction | LoadCourseActionSuccess
+    | SelectCourse | CleanCourseSelection;

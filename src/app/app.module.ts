@@ -10,17 +10,21 @@ import { EffectsModule } from '@ngrx/effects';
 
 import { AppConfigService, AppComponent, appRoutes } from './';
 
-import { LoggedInGuard } from './components/login/login.guard';
-import { LoginService } from './services/login.service';
-import { CourseService } from './services/course.service';
+import { LoggedInGuard } from './components/login';
+import { LoginService, CourseService } from './services';
 
 import { BackendProvider } from './server';
 import { appReducer, CourseEffects, LoginEffects, AppEffects } from './state/index';
 import { ComponentsModule } from './components';
 
+import { CourseSelectedComponent } from './components/course/course-selected.component';
+import { CourseComponent } from './components/course/course.component';
+
 @NgModule({
     declarations: [
-        AppComponent
+        AppComponent,
+        CourseSelectedComponent,
+        CourseComponent,
     ],
     imports: [
         BrowserModule,

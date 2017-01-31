@@ -8,5 +8,5 @@ export const appRoutes: Routes = [
     { path: 'courses', component: CourseListComponent, canActivate: [LoggedInGuard] },
     { path: 'courses/:id', component: CourseComponent, canActivate: [LoggedInGuard] },
     { path: 'login', component: LoginComponent },
-    { path: '**', redirectTo: '/courses' }
+    { path: '**', redirectTo: '' }
 ];

@@ -15,6 +15,6 @@ export class LoginComponent {
     title = 'LoginComponent';
 
     constructor(private router: Router, private loginService: LoginService, private store: Store<state.AppState>) {
-        this.loggedIn = store.select(state.getLoginLoggedIn);
+        this.loggedIn = store.select(state.getLoggedIn);
     }
 }
