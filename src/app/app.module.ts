@@ -12,7 +12,8 @@ import { AppConfigService, AppComponent, appRoutes } from './';
 
 import { LoginService, CourseService } from './services';
 
-import { appReducer, CourseEffects, LoginEffects, AppEffects } from './state/index';
+import { appReducer, CourseEffects, LoginEffects, AppEffects } from './state';
+import {PipesModule} from './common/pipes';
 import { ComponentsModule } from './components';
 
 import * as course from './components/course';
@@ -42,6 +43,7 @@ import {backendMockFactory} from './server/backend.provider';
         EffectsModule.run(LoginEffects),
         EffectsModule.run(CourseEffects),
         EffectsModule.run(AppEffects),
+        PipesModule,
         ComponentsModule
     ],
     providers: [

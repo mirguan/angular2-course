@@ -4,8 +4,7 @@ import { Router } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { Subscription, Observable } from 'rxjs';
 import { User } from '../../models';
-import * as state from '../../state/index';
-import { Login } from '../../state/login';
+import * as state from '../../state';
 
 @Injectable()
 @Component({
@@ -44,6 +43,6 @@ export class LoginComponent implements OnInit, OnDestroy {
     }
 
     login() {
-        this.store.dispatch(new Login(Object.assign({}, this.user)));
+        this.store.dispatch(new state.Login(Object.assign({}, this.user)));
     }
 }
