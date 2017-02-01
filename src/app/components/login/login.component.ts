@@ -3,11 +3,10 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs/Observable';
-import { LoginService } from '../../services/login.service';
 import { User } from '../../models';
 import * as state from '../../state/index';
 import { Login } from '../../state/login';
-import { getErrorMessage } from '../../state/app.reducers';
+import { getErrorMessage, getHasError, getLoggedIn } from '../../state/app.reducers';
 
 @Injectable()
 @Component({
@@ -17,18 +16,27 @@ import { getErrorMessage } from '../../state/app.reducers';
 export class LoginComponent implements OnInit{
     user: User = new User();
     loginForm: FormGroup;
-    serverError: Observable<string>;
+    errorMessage: Observable<string>;
+    hasError: Observable<boolean>;
 
-    constructor(private router: Router, private loginService: LoginService, private store: Store<state.AppState>,
-        private fb: FormBuilder) {
+    constructor(private router: Router, private store: Store<state.AppState>, private fb: FormBuilder) {
     }
 
     ngOnInit(): void {
+        this.store.select(getLoggedIn)
+            .take(1)
+            .subscribe(loggedIn => {
+                if (loggedIn) {
+                    Observable.fromPromise(this.router.navigate(['']));
+                }
+            });
+
         this.loginForm = this.fb.group({
-            'username': ['', Validators.compose([Validators.required, Validators.pattern('^[a-zA-Z]+$')])],
+            'login': ['', Validators.compose([Validators.required, Validators.pattern('^[a-zA-Z]+$')])],
             'password': ['', Validators.compose([Validators.required, Validators.pattern('^[0-9a-zA-Z]+$')])]
         });
-        this.serverError = this.store.select(getErrorMessage);
+        this.errorMessage = this.store.select(getErrorMessage);
+        this.hasError = this.store.select(getHasError);
     }
 
     login() {

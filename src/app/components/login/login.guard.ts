@@ -14,7 +14,7 @@ export class LoggedInGuard implements CanActivate {
             .first()
             .do(loggedIn => {
                if (!loggedIn) {
-                   let action = new LoginRedirect(state.url.startsWith('/login') ? '' : state.url);
+                   let action = new LoginRedirect(state.url.startsWith('/login') ? '#' : state.url);
                    this.store.dispatch(action);
                }
 

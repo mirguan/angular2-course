@@ -41,3 +41,4 @@ export const getSelectedCourse = createSelector(getCourseState, course.getSelect
 
 export const getErrorState = (state: AppState) => state.error;
 export const getErrorMessage = createSelector(getErrorState, error.getErrorMessage);
+export const getHasError = createSelector(getErrorState, error.getHasError);

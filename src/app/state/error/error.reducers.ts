@@ -1,7 +1,7 @@
+import { createSelector } from 'reselect';
 import { Action } from '@ngrx/store';
 import { ErrorState } from './error.state';
 import * as login from '../login';
-
 
 const initialState: ErrorState = {
     errorMessage: null
@@ -23,4 +23,7 @@ export const reducer = (state = initialState, action: Action): ErrorState => {
 
 export const getErrorMessage = (state: ErrorState) => state.errorMessage;
 
+export const getHasError = createSelector(getErrorMessage, (errorMessage) => {
+    return !(errorMessage == null || errorMessage.length === 0);
+});
 

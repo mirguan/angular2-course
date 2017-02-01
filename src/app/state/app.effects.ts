@@ -27,6 +27,9 @@ export class AppEffects {
 
     private redirect(url: string): Observable<boolean> {
         if (url !== null && url !== '') {
+            if (url === '#') {
+                return Observable.fromPromise(this.router.navigate(['']));
+            }
             return Observable.fromPromise(this.router.navigate([url]));
         }
         return Observable.of(true);

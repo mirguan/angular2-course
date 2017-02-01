@@ -1,18 +1,21 @@
 <h2>Login</h2>
 <form (ngSubmit)="login()" [formGroup]="loginForm">
-    <div>
-        <label for="username">Username: </label>
-        <input type="text" id="username" placeholder="Username" [formControl]="loginForm.controls['username']" [(ngModel)]="user.username" autofocus/>
-        <div *ngIf="loginForm.controls['username'].touched && loginForm.controls['username'].hasError('required')">Username is required</div>
-        <div *ngIf="loginForm.controls['username'].touched && loginForm.controls['username'].hasError('pattern')">Username should contain English letters only</div>
+    <div *ngIf="hasError | async">
+        {{errorMessage | async }}
     </div>
     <div>
-        <label for="password">Password: </label>
+        <label for="login">Login </label>
+        <input type="text" id="login" placeholder="Login" [formControl]="loginForm.controls['login']" [(ngModel)]="user.login" autofocus/>
+        <div *ngIf="loginForm.controls['login'].touched && loginForm.controls['login'].hasError('required')">Login is required</div>
+        <div *ngIf="loginForm.controls['login'].touched && loginForm.controls['login'].hasError('pattern')">Login should contain English letters only</div>
+    </div>
+    <div>
+        <label for="password">Password </label>
         <input type="password" id="password" placeholder="Password" [formControl]="loginForm.controls['password']" [(ngModel)]="user.password" />
         <div *ngIf="loginForm.controls['password'].touched && loginForm.controls['password'].hasError('required')">Password is required</div>
         <div *ngIf="loginForm.controls['password'].touched && loginForm.controls['password'].hasError('pattern')">Password should contain English letters and Numbers only</div>
     </div>
     <button type="submit" [disabled]="!loginForm.valid">Login</button>
 </form>
-{{serverError | async }}
+
 

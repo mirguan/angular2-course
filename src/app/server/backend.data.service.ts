@@ -31,8 +31,8 @@ export class BackendDataService {
         this.courseSeed = this.courses.length + 1;
     }
 
-    getUser(username: string, password: string): BackendUser {
-        let items: BackendUser[] = this.users.filter(user => user.name === username && user.password === password);
+    getUser(login: string, password: string): BackendUser {
+        let items: BackendUser[] = this.users.filter(user => user.login === login && user.password === password);
         if (items != null && items.length > 0) {
             return items[0];
         }

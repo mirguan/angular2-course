@@ -15,7 +15,7 @@ export class LoginEffects {
     login$: Observable<Action> = this.actions
         .ofType(login.Login.Type)
         .map(action => <User>action.payload)
-        .switchMap(user => this.loginService.login(user.name, user.password)
+        .switchMap(user => this.loginService.login(user.login, user.password)
             .map(data => new login.LoginSuccess(data))
             .catch((error) => Observable.of(new login.LoginFailure(error)))
         );

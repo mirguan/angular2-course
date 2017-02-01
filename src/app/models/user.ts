@@ -1,7 +1,7 @@
 export class User {
     id: number;
-    name?: string;
-    password?: string;
+    login: string;
+    password: string;
     token?: string;
 
     constructor(values: Object = {}) {

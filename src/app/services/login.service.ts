@@ -6,6 +6,7 @@ import { AppConfigService } from '../app.config.service';
 import { User } from '../models/user';
 import { AppState } from '../state/app.state';
 import * as login from '../state/login/login.actions';
+import {escape} from "querystring";
 
 @Injectable()
 export class LoginService {
@@ -23,17 +24,20 @@ export class LoginService {
     }
 
     constructor(private config: AppConfigService, private http: Http, store: Store<AppState> ) {
-        let user = JSON.parse(localStorage.getItem('auth_token'));
+        let user: User = JSON.parse(localStorage.getItem('auth_token'));
         if (user) {
             store.dispatch(new login.LoginSuccess(user));
         }
     }
 
-    login(username: string, password: string): Observable<User> {
-        return this.http.post(`${this.config.apiUrl}/authenticate`, JSON.stringify({ username: username, password: password }))
+    login(login: string, password: string): Observable<User> {
+        return this.http.post(`${this.config.apiUrl}/authenticate`, JSON.stringify({ login: login, password: password }))
             .map((response: Response) => {
                 let body = response.json();
-                let user = Object.assign({}, body.user, {token: body.token, password: '*'.repeat(10)});
+                if (!response.ok || !(body && body.token)) {
+                    throw new Error('Wrong Login or Password');
+                }
+                let user: User = Object.assign({}, body.user, {token: body.token, password: '*'.repeat(10)});
                 localStorage.setItem('auth_token', JSON.stringify({ user }));
                 return user;
             })
