@@ -8,7 +8,7 @@ import * as course from '../../state/course';
 
 @Injectable()
 @Component({
-    selector: 'app-course',
+    selector: 'app-course-placeholder',
     changeDetection: ChangeDetectionStrategy.OnPush,
     template: `
         <app-course-selected></app-course-selected>

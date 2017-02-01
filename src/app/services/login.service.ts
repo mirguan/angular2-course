@@ -6,7 +6,6 @@ import { AppConfigService } from '../app.config.service';
 import { User } from '../models/user';
 import { AppState } from '../state/app.state';
 import * as login from '../state/login/login.actions';
-import {escape} from "querystring";
 
 @Injectable()
 export class LoginService {
@@ -38,7 +37,7 @@ export class LoginService {
                     throw new Error('Wrong Login or Password');
                 }
                 let user: User = Object.assign({}, body.user, {token: body.token, password: '*'.repeat(10)});
-                localStorage.setItem('auth_token', JSON.stringify({ user }));
+                localStorage.setItem('auth_token', JSON.stringify(user));
                 return user;
             })
             .catch(error => LoginService.handleError(error));

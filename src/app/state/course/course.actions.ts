@@ -2,17 +2,17 @@ import { Action } from '@ngrx/store';
 import { Course } from '../../models/course';
 import { action } from '../action.cache';
 
-export class AddCourseAction implements Action {
+export class AddCourse implements Action {
     static Type = action('[Course] Add');
 
-    type = AddCourseAction.Type;
+    type = AddCourse.Type;
     constructor(public payload: Course) { }
 }
 
-export class AddCourseActionSuccess implements Action {
+export class AddCourseSuccess implements Action {
     static Type = action('[Course] Add Success');
 
-    type = AddCourseActionSuccess.Type;
+    type = AddCourseSuccess.Type;
     constructor(public payload: Course) { }
 }
 
@@ -30,44 +30,66 @@ export class CleanCourseSelection implements Action {
     constructor(public payload: string) { }
 }
 
-export class SaveCourseAction implements Action {
-    static Type = action('[Course] Edit');
+export class SaveCourse implements Action {
+    static Type = action('[Course] Save');
 
-    type = SaveCourseAction.Type;
+    type = SaveCourse.Type;
     constructor(public payload: Course) { }
 }
 
-export class DeleteCourseAction implements Action {
+export class SaveCourseSuccess implements Action {
+    static Type = action('[Course] Save Success');
+
+    type = SaveCourse.Type;
+    constructor(public payload: Course) { }
+}
+
+export class DeleteCourse implements Action {
     static Type = action('[Course] Delete');
 
-    type = DeleteCourseAction.Type;
+    type = DeleteCourse.Type;
     constructor(public payload: Course) { }
 }
 
-export class DeleteCourseActionSuccess implements Action {
+export class DeleteCourseSuccess implements Action {
     static Type = action('[Course] Delete Success');
 
-    type = DeleteCourseActionSuccess.Type;
+    type = DeleteCourseSuccess.Type;
     constructor(public payload: Course) { }
 }
 
-export class LoadCourseAction implements Action {
+export class LoadCourses implements Action {
     static Type = action('[Course] Load');
 
-    type = LoadCourseAction.Type;
+    type = LoadCourses.Type;
     constructor() { }
 }
 
-export class LoadCourseActionSuccess implements Action {
-    static Type = action('[Course] Load Success');
+export class LoadCoursesComplete implements Action {
+    static Type = action('[Course] Load Complete');
 
-    type = LoadCourseActionSuccess.Type;
+    type = LoadCoursesComplete.Type;
+    constructor(public payload: Course[]) { }
+}
+
+export class SearchCourses implements Action {
+    static Type = action('[Course] Search');
+
+    type = SearchCourses.Type;
+    constructor(public payload: string) { }
+}
+
+export class SearchCoursesComplete implements Action {
+    static Type = action('[Course] Search Complete');
+
+    type = SearchCoursesComplete.Type;
     constructor(public payload: Course[]) { }
 }
 
 export type CourseActions
-    = AddCourseAction | AddCourseActionSuccess
-    | SaveCourseAction
-    | DeleteCourseAction | DeleteCourseActionSuccess
-    | LoadCourseAction | LoadCourseActionSuccess
-    | SelectCourse | CleanCourseSelection;
+    = AddCourse | AddCourseSuccess
+    | SaveCourse
+    | DeleteCourse | DeleteCourseSuccess
+    | LoadCourses | LoadCoursesComplete
+    | SelectCourse| CleanCourseSelection
+    | SearchCourses| SearchCoursesComplete;

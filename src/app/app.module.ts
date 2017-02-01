@@ -10,7 +10,6 @@ import { EffectsModule } from '@ngrx/effects';
 
 import { AppConfigService, AppComponent, appRoutes } from './';
 
-import { LoggedInGuard } from './components/login';
 import { LoginService, CourseService } from './services';
 
 import { appReducer, CourseEffects, LoginEffects, AppEffects } from './state/index';
@@ -24,10 +23,15 @@ import {backendMockFactory} from './server/backend.provider';
 @NgModule({
     declarations: [
         AppComponent,
+
+        course.CourseListItemComponent,
         course.CourseEditComponent,
         course.CourseSelectedComponent,
         course.CourseComponent,
-        courses.CourseListComponent
+
+        courses.CourseListComponent,
+        courses.CourseListItemsComponent,
+        courses.CourseSearchComponent
     ],
     imports: [
         BrowserModule,
@@ -42,7 +46,6 @@ import {backendMockFactory} from './server/backend.provider';
     ],
     providers: [
         AppConfigService,
-        LoggedInGuard,
         LoginService,
         CourseService,
         BaseRequestOptions,
@@ -51,7 +54,8 @@ import {backendMockFactory} from './server/backend.provider';
             provide: Http,
             deps: [MockBackend, BaseRequestOptions],
             useFactory: backendMockFactory
-        }
+        },
+        ComponentsModule
     ],
     bootstrap: [
         AppComponent

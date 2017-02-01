@@ -7,24 +7,25 @@ import { Course } from '../../models/course';
 const initialState: CourseState = {
     loading: false,
     courses: [],
-    selectedCourseId: null
+    selectedCourseId: null,
+    query: ''
 };
 
 export const reducer:  ActionReducer<CourseState> = (state: CourseState = initialState, action: course.CourseActions): CourseState => {
     switch (action.type) {
 
-        case course.LoadCourseAction.Type:
+        case course.LoadCourses.Type:
             return Object.assign({}, state, { loading: true });
 
-        case course.LoadCourseActionSuccess.Type:
-            return Object.assign({}, state, { loading: false, courses: (<course.LoadCourseActionSuccess>action).payload });
+        case course.LoadCoursesComplete.Type:
+            return Object.assign({}, state, { loading: false, courses: (<course.LoadCoursesComplete>action).payload });
 
-        case course.AddCourseActionSuccess.Type:
+        case course.AddCourseSuccess.Type:
             return Object.assign({}, state, {
-                courses: [...state.courses, (<course.AddCourseActionSuccess>action).payload]});
+                courses: [...state.courses, (<course.AddCourseSuccess>action).payload]});
 
-        case course.DeleteCourseActionSuccess.Type:
-            let data: Course = (<course.DeleteCourseAction>action).payload;
+        case course.DeleteCourseSuccess.Type:
+            let data: Course = (<course.DeleteCourse>action).payload;
             return Object.assign({}, state, { courses: state.courses.filter( item => item.id !== data.id) });
 
         case course.SelectCourse.Type:
@@ -32,6 +33,12 @@ export const reducer:  ActionReducer<CourseState> = (state: CourseState = initia
 
         case course.CleanCourseSelection.Type:
             return Object.assign({}, state, { selectedCourseId: null });
+
+        case course.SearchCourses.Type:
+            return Object.assign({}, state, { loading: true, query: (<course.SearchCourses>action).payload});
+
+        case course.SearchCoursesComplete.Type:
+            return Object.assign({}, state, { loading: false, courses: (<course.LoadCoursesComplete>action).payload });
 
         default:
             return state;
@@ -49,3 +56,5 @@ export const getSelectedCourse = createSelector(getCourses, getSelectedCourseId,
     }
     return new Course();
 });
+
+export const getQuery = (state: CourseState) => state.query;

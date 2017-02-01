@@ -4,4 +4,5 @@ export interface CourseState {
     loading: boolean;
     courses: Course[];
     selectedCourseId: string;
+    query: string;
 }

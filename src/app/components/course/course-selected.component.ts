@@ -24,9 +24,9 @@ export class CourseSelectedComponent {
 
     save(course: Course) {
         if (course.id) {
-            this.store.dispatch(new state.SaveCourseAction(course));
+            this.store.dispatch(new state.SaveCourse(course));
         } else {
-            this.store.dispatch(new state.AddCourseAction(course));
+            this.store.dispatch(new state.AddCourse(course));
         }
     }
 }

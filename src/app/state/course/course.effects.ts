@@ -13,22 +13,29 @@ export class CourseEffects {
 
     @Effect()
     load$: Observable<Action> = this.actions
-        .ofType(course.LoadCourseAction.Type)
+        .ofType(course.LoadCourses.Type)
         .switchMap(() => this.courseService.load()
-            .map(data => new course.LoadCourseActionSuccess(<Course[]>data))
+            .map(data => new course.LoadCoursesComplete(<Course[]>data))
         );
 
     @Effect()
     add$: Observable<Action> = this.actions
-        .ofType(course.AddCourseAction.Type)
+        .ofType(course.AddCourse.Type)
         .switchMap(action => this.courseService.add(<Course>action.payload)
-            .map(data => new course.AddCourseActionSuccess(<Course>data))
+            .map(data => new course.AddCourseSuccess(<Course>data))
+        );
+
+    @Effect()
+    save: Observable<Action> = this.actions
+        .ofType(course.SaveCourse.Type)
+        .switchMap(action => this.courseService.save(<Course>action.payload)
+            .map(data => new course.SaveCourseSuccess(<Course>data))
         );
 
     @Effect()
     delete$: Observable<Action> = this.actions
-        .ofType(course.DeleteCourseAction.Type)
+        .ofType(course.DeleteCourse.Type)
         .switchMap(action => this.courseService.delete(<Course>action.payload)
-            .map(data => new course.DeleteCourseActionSuccess(<Course>data))
+            .map(data => new course.DeleteCourseSuccess(<Course>data))
         );
 }

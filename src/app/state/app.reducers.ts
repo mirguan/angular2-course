@@ -30,14 +30,15 @@ export const getLoginState = (state: AppState) => state.login;
 export const getLogging = createSelector(getLoginState, login.getLogging);
 export const getRedirectUrl = createSelector(getLoginState, login.getRedirectUrl);
 export const getLoggedIn = createSelector(getLoginState, login.getLoggedIn);
-export const getUser = createSelector(getLoginState, login.getUser);
+export const getLoggedUser = createSelector(getLoginState, login.getUser);
 
 export const getCourseState = (state: AppState) => state.course;
 
-export const getLoading = createSelector(getCourseState, course.getLoading);
+export const getCourseLoading = createSelector(getCourseState, course.getLoading);
 export const getCourses = createSelector(getCourseState, course.getCourses);
 export const getSelectedCourseId = createSelector(getCourseState, course.getSelectedCourseId);
 export const getSelectedCourse = createSelector(getCourseState, course.getSelectedCourse);
+export const getCourseQuery = createSelector(getCourseState, course.getQuery);
 
 export const getErrorState = (state: AppState) => state.error;
 export const getErrorMessage = createSelector(getErrorState, error.getErrorMessage);

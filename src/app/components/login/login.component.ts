@@ -1,19 +1,19 @@
-import { Component, Injectable, OnInit } from '@angular/core';
+import { Component, Injectable, OnInit, OnDestroy } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Store } from '@ngrx/store';
-import { Observable } from 'rxjs/Observable';
+import { Subscription, Observable } from 'rxjs';
 import { User } from '../../models';
 import * as state from '../../state/index';
 import { Login } from '../../state/login';
-import { getErrorMessage, getHasError, getLoggedIn } from '../../state/app.reducers';
 
 @Injectable()
 @Component({
     selector: 'app-login',
     templateUrl: './login.component.html'
 })
-export class LoginComponent implements OnInit{
+export class LoginComponent implements OnInit, OnDestroy {
+    subscription: Subscription;
     user: User = new User();
     loginForm: FormGroup;
     errorMessage: Observable<string>;
@@ -23,7 +23,7 @@ export class LoginComponent implements OnInit{
     }
 
     ngOnInit(): void {
-        this.store.select(getLoggedIn)
+        this.subscription = this.store.select(state.getLoggedIn)
             .take(1)
             .subscribe(loggedIn => {
                 if (loggedIn) {
@@ -35,8 +35,12 @@ export class LoginComponent implements OnInit{
             'login': ['', Validators.compose([Validators.required, Validators.pattern('^[a-zA-Z]+$')])],
             'password': ['', Validators.compose([Validators.required, Validators.pattern('^[0-9a-zA-Z]+$')])]
         });
-        this.errorMessage = this.store.select(getErrorMessage);
-        this.hasError = this.store.select(getHasError);
+        this.errorMessage = this.store.select(state.getErrorMessage);
+        this.hasError = this.store.select(state.getHasError);
+    }
+
+    ngOnDestroy() {
+        this.subscription.unsubscribe();
     }
 
     login() {

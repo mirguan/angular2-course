@@ -17,6 +17,9 @@ import * as login from './login';
         FormsModule,
         ReactiveFormsModule,
         login.LoginComponent
+    ],
+    providers: [
+        login.LoggedInGuard
     ]
 })
 export class ComponentsModule {}
