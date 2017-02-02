@@ -35,7 +35,12 @@ export class CourseService  {
 
     get(id: number): Observable<Course> {
         return this.http.get(`${this.config.apiUrl}/courses/${id}`, this.options)
-            .map((response: Response) => response.json());
+            .map((response: Response) => {
+                if (!response.ok) {
+                    throw new Error(`Error state: '${response.status}'`);
+                }
+                return response.json();
+            });
     }
 
     save(course: Course): Observable<Course> {

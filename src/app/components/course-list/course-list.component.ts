@@ -1,4 +1,5 @@
 import { Component, Injectable, ChangeDetectionStrategy } from '@angular/core';
+import { Router } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
 import { Course } from '../../models/course';
@@ -19,7 +20,7 @@ export class CourseListComponent {
     courses: Observable<Course[]>;
     loading: Observable<boolean>;
 
-    constructor(private store: Store<state.AppState>) {
+    constructor(private router: Router, private store: Store<state.AppState>) {
         this.searchQuery = store.select(state.getCourseQuery);
         this.courses = store.select(state.getCourses);
         this.loading = store.select(state.getCoursesLoading);
@@ -32,6 +33,6 @@ export class CourseListComponent {
     }
 
     add() {
-        this.store.dispatch(new state.SelectCourse('new'));
+        this.router.navigate(['courses', 'new']);
     }
 }

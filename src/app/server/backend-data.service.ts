@@ -60,7 +60,7 @@ export class BackendDataService {
 
     updateCourse(id: number, source: Course) {
         let course = this.getCourse(id);
-        Object.assign(course, source);
+        course = Object.assign({}, course, source);
     }
 
     deleteCourse(id: number) {

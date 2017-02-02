@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import * as login from './login';
+import * as course from './course';
 
 @NgModule({
     imports: [
@@ -19,7 +20,8 @@ import * as login from './login';
         login.LoginComponent
     ],
     providers: [
-        login.LoggedInGuard
+        login.LoggedInGuard,
+        course.CourseExistsGuard
     ]
 })
 export class ComponentsModule {}

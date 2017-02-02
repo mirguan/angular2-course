@@ -1,6 +1,6 @@
 import {Http, BaseRequestOptions, Response, ResponseOptions, RequestMethod} from '@angular/http';
 import {MockBackend, MockConnection} from '@angular/http/testing';
-import {BackendDataService} from './backend.data.service';
+import {BackendDataService} from './backend-data.service';
 import {User} from '../models/user';
 import {Course} from '../models/course';
 
@@ -63,6 +63,7 @@ export function backendMockFactory(backend: MockBackend, options: BaseRequestOpt
                     let course: Course = service.getCourse(id);
                     if (course != null) {
                         connection.mockRespond(new Response(new ResponseOptions({status: 200, body: course})));
+                        return;
                     }
                     connection.mockRespond(new Response(new ResponseOptions({status: 404})));
                 } else {
@@ -76,8 +77,7 @@ export function backendMockFactory(backend: MockBackend, options: BaseRequestOpt
                     let id: number = Number(connection.request.url.match(courseMatcher)[1]);
                     let course: Course = JSON.parse(connection.request.getBody());
                     service.updateCourse(id, course);
-                    connection.mockRespond(new Response(new ResponseOptions({status: 200})
-                    ));
+                    connection.mockRespond(new Response(new ResponseOptions({status: 200})));
                 } else {
                     connection.mockRespond(new Response(new ResponseOptions({status: 401})));
                 }
@@ -88,8 +88,7 @@ export function backendMockFactory(backend: MockBackend, options: BaseRequestOpt
                 if (connection.request.headers.get('Authorization') === 'Bearer fake-jwt-token') {
                     let id: number = Number(connection.request.url.match(courseMatcher)[1]);
                     service.deleteCourse(id);
-                    connection.mockRespond(new Response(new ResponseOptions({status: 200})
-                    ));
+                    connection.mockRespond(new Response(new ResponseOptions({status: 200})));
                 } else {
                     connection.mockRespond(new Response(new ResponseOptions({status: 401})));
                 }
@@ -98,8 +97,7 @@ export function backendMockFactory(backend: MockBackend, options: BaseRequestOpt
 
             if (connection.request.url.endsWith('/api/authors') && connection.request.method === RequestMethod.Get) {
                 if (connection.request.headers.get('Authorization') === 'Bearer fake-jwt-token') {
-                    connection.mockRespond(new Response(
-                        new ResponseOptions({status: 200, body: service.getAuthors()})
+                    connection.mockRespond(new Response(new ResponseOptions({status: 200, body: service.getAuthors()})
                     ));
                 } else {
                     connection.mockRespond(new Response(new ResponseOptions({status: 401})));

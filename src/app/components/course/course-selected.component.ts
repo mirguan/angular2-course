@@ -1,6 +1,7 @@
 import { Component, Injectable, ChangeDetectionStrategy } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 import { Store } from '@ngrx/store';
-import { Observable } from 'rxjs/Observable';
+import { Observable } from 'rxjs';
 import { Course } from '../../models/course';
 import * as state from '../../state';
 
@@ -18,7 +19,7 @@ import * as state from '../../state';
 export class CourseSelectedComponent {
     course: Observable<Course>;
 
-    constructor(private store: Store<state.AppState>) {
+    constructor(private store: Store<state.AppState>, route: ActivatedRoute) {
         this.course = store.select(state.getSelectedCourse);
     }
 

@@ -19,7 +19,7 @@ export class AddCourseSuccess implements Action {
 export class GetCourse implements Action {
     static Type = action('[Course] Get');
 
-    type = SaveCourse.Type;
+    type = GetCourse.Type;
     constructor(public payload: Course) { }
 }
 
@@ -47,7 +47,7 @@ export class SaveCourse implements Action {
 export class SaveCourseSuccess implements Action {
     static Type = action('[Course] Save Success');
 
-    type = SaveCourse.Type;
+    type = SaveCourseSuccess.Type;
     constructor(public payload: Course) { }
 }
 

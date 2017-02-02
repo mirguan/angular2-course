@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
-import { Router, CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot } from '@angular/router';
+import { Router, CanActivate, ActivatedRouteSnapshot } from '@angular/router';
 import * as state from '../../state';
 import { CourseService } from '../../services/course.service';
 import { Course } from '../../models/course';
@@ -20,7 +20,8 @@ export class CourseExistsGuard implements CanActivate {
         if (id) {
             return this.courseExists(id);
         }
-        return Observable.of(false);
+
+        return this.invalidCourseId();
     }
 
     courseExists(id: number): Observable<boolean> {
@@ -48,9 +49,11 @@ export class CourseExistsGuard implements CanActivate {
             .map(course => new state.GetCourse(course))
             .do((action: state.GetCourse) => this.store.dispatch(action))
             .map(course => !!course)
-            .catch(() => {
-                Observable.fromPromise(this.router.navigate(['/404']));
-                return Observable.of(false);
-            });
+            .catch(() => this.invalidCourseId());
+    }
+
+    invalidCourseId(): Observable<boolean> {
+        Observable.fromPromise(this.router.navigate(['/404']));
+        return Observable.of(false);
     }
 }

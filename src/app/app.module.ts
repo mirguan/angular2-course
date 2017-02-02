@@ -14,7 +14,8 @@ import { LoginService, CourseService } from './services';
 
 import { appReducer, CourseEffects, LoginEffects, AppEffects } from './state';
 import { PipesModule } from './common/pipes';
-import { ComponentsModule } from './components';
+import { ComponentsModule,  } from './components';
+import { PageNotFoundComponent } from './components/page-not-found.component';
 
 import * as course from './components/course';
 import * as courses from './components/course-list';
@@ -24,6 +25,7 @@ import { backendMockFactory } from './server/backend.provider';
 @NgModule({
     declarations: [
         AppComponent,
+        PageNotFoundComponent,
 
         course.CourseListItemComponent,
         course.CourseEditComponent,
