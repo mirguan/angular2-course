@@ -33,8 +33,13 @@ export class CourseService  {
             .map((response: Response) => course);
     }
 
+    get(id: number): Observable<Course> {
+        return this.http.get(`${this.config.apiUrl}/courses/${id}`, this.options)
+            .map((response: Response) => response.json());
+    }
+
     save(course: Course): Observable<Course> {
-        return this.http.put(`${this.config.apiUrl}/courses`, JSON.stringify(course), this.options)
+        return this.http.put(`${this.config.apiUrl}/courses/${course.id}`, JSON.stringify(course), this.options)
             .map((response: Response) => course);
     }
 

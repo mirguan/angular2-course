@@ -24,6 +24,16 @@ export const reducer:  ActionReducer<CourseState> = (state: CourseState = initia
             return Object.assign({}, state, {
                 courses: [...state.courses, (<course.AddCourseSuccess>action).payload]});
 
+        case course.GetCourse.Type: {
+            let course: Course = (<course.AddCourseSuccess>action).payload;
+            if (state.courses.find( item => item.id === course.id) != null) {
+                return state;
+            }
+            return Object.assign({}, state, {
+                courses: [...state.courses, course]
+            });
+        }
+
         case course.DeleteCourseSuccess.Type:
             let data: Course = (<course.DeleteCourse>action).payload;
             return Object.assign({}, state, { courses: state.courses.filter( item => item.id !== data.id) });
@@ -50,11 +60,24 @@ export const getCourses = (state: CourseState) => state.courses;
 export const getSelectedCourseId = (state: CourseState) => state.selectedCourseId;
 
 export const getSelectedCourse = createSelector(getCourses, getSelectedCourseId, (entities, selectedId) => {
+    if (selectedId === 'new') {
+        return new Course();
+    }
+
+    if (selectedId == null || selectedId.length === 0) {
+        return null;
+    }
+
     let id: number = +selectedId;
     if (id) {
-        return entities.filter(item => item.id === id);
+        let items: Course[] = entities.filter(item => item.id === id);
+        if (items != null && items.length === 1) {
+            return items[0];
+        }
+        return null;
     }
-    return new Course();
+
+    return null;
 });
 
 export const getQuery = (state: CourseState) => state.query;

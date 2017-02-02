@@ -4,7 +4,7 @@ export class Course {
     id?: number;
     title: string;
     description: string;
-    date: Date;
+    createDate: Date;
     duration: number;
     authors: Author[] = [];
 

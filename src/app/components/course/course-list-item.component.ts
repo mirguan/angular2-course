@@ -5,7 +5,11 @@ import { Course } from '../../models/course';
 @Component({
     selector: 'app-course-list-item',
     template: `
-        
+        {{course.id}}
+        {{course.title}}
+        {{course.description}}
+        {{course.createDate | date: 'mm.dd.yyyy'}}
+        {{course.duration | duration}}
     `
 })
 export class CourseListItemComponent {

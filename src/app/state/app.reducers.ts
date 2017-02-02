@@ -34,7 +34,7 @@ export const getLoggedUser = createSelector(getLoginState, login.getUser);
 
 export const getCourseState = (state: AppState) => state.course;
 
-export const getCourseLoading = createSelector(getCourseState, course.getLoading);
+export const getCoursesLoading = createSelector(getCourseState, course.getLoading);
 export const getCourses = createSelector(getCourseState, course.getCourses);
 export const getSelectedCourseId = createSelector(getCourseState, course.getSelectedCourseId);
 export const getSelectedCourse = createSelector(getCourseState, course.getSelectedCourse);

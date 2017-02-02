@@ -16,6 +16,13 @@ export class AddCourseSuccess implements Action {
     constructor(public payload: Course) { }
 }
 
+export class GetCourse implements Action {
+    static Type = action('[Course] Get');
+
+    type = SaveCourse.Type;
+    constructor(public payload: Course) { }
+}
+
 export class SelectCourse implements Action {
     static Type = action('[Course] Select');
 
@@ -88,7 +95,7 @@ export class SearchCoursesComplete implements Action {
 
 export type CourseActions
     = AddCourse | AddCourseSuccess
-    | SaveCourse
+    | GetCourse | SaveCourse
     | DeleteCourse | DeleteCourseSuccess
     | LoadCourses | LoadCoursesComplete
     | SelectCourse| CleanCourseSelection

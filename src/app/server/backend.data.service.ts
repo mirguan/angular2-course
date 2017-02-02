@@ -24,7 +24,7 @@ export class BackendDataService {
 
         this.courses = [
             new Course({
-                id: 1, title: 'Course 1', description: 'Description 1', date: new Date(2016, 1, 2), duration: 183,
+                id: 1, title: 'Course 1', description: 'Description 1', createDate: new Date(2016, 1, 2), duration: 183,
                 authors: [this.authors[0], this.authors[3]]
             })
         ];
@@ -51,7 +51,11 @@ export class BackendDataService {
     }
 
     getCourse(id: number): Course {
-        return this.courses.filter(course => course.id === id)[0];
+        let items: Course[] = this.courses.filter(course => course.id === id)
+        if (items != null && items.length > 0) {
+            return items[0];
+        }
+        return null;
     }
 
     updateCourse(id: number, source: Course) {
@@ -60,7 +64,7 @@ export class BackendDataService {
     }
 
     deleteCourse(id: number) {
-        this.courses.filter(course => course.id !== id);
+        this.courses = this.courses.filter(course => course.id !== id);
     }
 
     getAuthors(): Author[] {

@@ -10,6 +10,7 @@ import * as state from '../../state';
     changeDetection: ChangeDetectionStrategy.OnPush,
     template: `
         <app-course-search [query]="searchQuery | async" [searching]="loading | async" (search)="search($event)"></app-course-search>
+        <button type="button" (click)="add()">Add Course</button>
         <app-course-list-items [courses]="courses | async"></app-course-list-items>
     `
 })
@@ -21,12 +22,16 @@ export class CourseListComponent {
     constructor(private store: Store<state.AppState>) {
         this.searchQuery = store.select(state.getCourseQuery);
         this.courses = store.select(state.getCourses);
-        this.loading = store.select(state.getCourseLoading);
+        this.loading = store.select(state.getCoursesLoading);
 
         this.store.dispatch(new state.LoadCourses());
     }
 
     search(query: string) {
         this.store.dispatch(new state.SearchCourses(query));
+    }
+
+    add() {
+        this.store.dispatch(new state.SelectCourse('new'));
     }
 }
