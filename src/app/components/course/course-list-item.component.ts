@@ -10,10 +10,16 @@ import { Course } from '../../models/course';
                 <div fxLayout="row" fxLayoutWrap>
                     <div fxFlex><h5>{{course.title}}</h5></div>
                     <div fxFlex="70px" class="text-right"><h5><span class="badge badge-default">{{course.duration | duration}}</span></h5></div>
-                    <div fxFlex="120px" class="text-right">{{course.createDate | date: 'MM.dd.yyyy'}}</div>
+                    <div fxFlex="120px" class="text-right text-muted">{{course.createDate | date: 'MM.dd.yyyy'}}</div>
                 </div>
                 <div fxLayout="row" fxLayoutWrap>
-                    <div fxFlex>{{course.description}}</div>
+                    <div fxFlex><app-course-list-item-authors [authors]="course.authors"></app-course-list-item-authors></div>
+                    <div fxFlex="190x"></div>
+                </div>
+                <div fxLayout="row" fxLayoutWrap>
+                    <div fxFlex><p class="lead">
+                        <app-read-more [text]="course.description" [maxLength]="150"></app-read-more><p>
+                    </div>
                 </div>
             </div>
             <div fxFlex="110px" class="ml-2">
@@ -30,6 +36,9 @@ import { Course } from '../../models/course';
         .item-box {
             background-color: #faf3f0;
             border:1px solid #eae3e0;
+        }
+        .lead {
+            font-size: 0.97rem;
         }
     `]
 })

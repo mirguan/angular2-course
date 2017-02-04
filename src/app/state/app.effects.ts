@@ -14,7 +14,7 @@ export class AppEffects {
     @Effect()
     loginRedirect$ = this.actions
         .ofType(login.LoginRedirect.Type)
-        .do(() => this.redirect('/login'))
+        .do(() => this.router.navigate(['login']))
         .ignoreElements();
 
     @Effect()
@@ -24,6 +24,11 @@ export class AppEffects {
         .map(([, url]) => url)
         .switchMap(url => this.redirect(url)
             .map(() => new login.LoginRedirectCleanup()));
+
+    @Effect()
+    logoutSuccess$: Observable<Action> = this.actions
+        .ofType(login.LogoutSuccess.Type)
+        .map(() => new login.LoginRedirect('#'));
 
     private redirect(url: string): Observable<boolean> {
         if (url !== null && url !== '') {

@@ -9,14 +9,21 @@ import { MockBackend } from '@angular/http/testing';
 import { StoreModule } from '@ngrx/store';
 import { EffectsModule } from '@ngrx/effects';
 
+import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
+
 import { AppConfigService, AppComponent, appRoutes } from './';
 
 import { LoginService, CourseService } from './services';
 
 import { appReducer, CourseEffects, LoginEffects, AppEffects } from './state';
 import { PipesModule } from './common/pipes';
-import { ComponentsModule,  } from './components';
+import { ComponentsModule } from './components';
+
+import { AppHeaderComponent } from './components/app-header.component';
 import { PageNotFoundComponent } from './components/page-not-found.component';
+import { ReadMoreComponent } from './components/read-more.component';
+
+import * as login from './components/login';
 
 import * as course from './components/course';
 import * as courses from './components/course-list';
@@ -26,21 +33,27 @@ import { backendMockFactory } from './server/backend.provider';
 @NgModule({
     declarations: [
         AppComponent,
+        AppHeaderComponent,
         PageNotFoundComponent,
+        ReadMoreComponent,
 
         course.CourseListItemComponent,
+        course.CourseListItemAuthorsComponent,
         course.CourseEditComponent,
         course.CourseSelectedComponent,
         course.CourseComponent,
 
         courses.CourseListComponent,
         courses.CourseListItemsComponent,
-        courses.CourseSearchComponent
+        courses.CourseSearchComponent,
+
+        login.LoginPaneComponent
     ],
     imports: [
         BrowserModule,
         FormsModule,
         HttpModule,
+        NgbModule.forRoot(),
         FlexLayoutModule.forRoot(),
         StoreModule.provideStore(appReducer),
         RouterModule.forRoot(appRoutes, {useHash: false}),

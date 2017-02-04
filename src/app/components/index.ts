@@ -16,8 +16,7 @@ import * as course from './course';
     exports: [
         CommonModule,
         FormsModule,
-        ReactiveFormsModule,
-        login.LoginComponent
+        ReactiveFormsModule
     ],
     providers: [
         login.LoggedInGuard,
