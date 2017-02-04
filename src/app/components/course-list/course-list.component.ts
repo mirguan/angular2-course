@@ -2,8 +2,8 @@ import { Component, Injectable, ChangeDetectionStrategy } from '@angular/core';
 import { Router } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
-import { Course } from '../../models/course';
 import * as state from '../../state';
+import { Course } from '../../models/course';
 
 @Injectable()
 @Component({
@@ -33,6 +33,6 @@ export class CourseListComponent {
     }
 
     add() {
-        this.router.navigate(['courses', 'new']);
+        Observable.fromPromise(this.router.navigate(['courses', 'new']));
     }
 }

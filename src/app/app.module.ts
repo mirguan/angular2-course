@@ -2,6 +2,7 @@
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
+import { FlexLayoutModule } from '@angular/flex-layout';
 
 import { HttpModule, BaseRequestOptions, Http } from '@angular/http';
 import { MockBackend } from '@angular/http/testing';
@@ -40,6 +41,7 @@ import { backendMockFactory } from './server/backend.provider';
         BrowserModule,
         FormsModule,
         HttpModule,
+        FlexLayoutModule.forRoot(),
         StoreModule.provideStore(appReducer),
         RouterModule.forRoot(appRoutes, {useHash: false}),
         EffectsModule.run(LoginEffects),
