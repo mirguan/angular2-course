@@ -40,7 +40,7 @@ export class ReadMoreComponent implements OnChanges  {
             this.hideToggle = true;
             return;
         }
-        this.hideToggle = false;
+        // this.hideToggle = false;
 
         this.currentText = this.isCollapsed
             ? this.text.substring(0, this.maxLength) + '...'

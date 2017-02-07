@@ -1,6 +1,10 @@
 body {
     font-family: Roboto, "Helvetica Neue", sans-serif;
     font-size: 12px;
-    line-height: 1.4;
+    line-height: 1.2;
     -webkit-font-smoothing: antialiased;
+}
+
+.container {
+    max-width: 52em;
 }

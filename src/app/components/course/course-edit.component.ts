@@ -114,6 +114,10 @@ export class CourseEditComponent {
             result.push('Duration is required');
         }
 
+        if (this.form.controls['authors'].hasError('required')) {
+            result.push('At least one author should be specified');
+        }
+
         return result;
     }
 

@@ -9,7 +9,13 @@ import * as state from '../../state';
 @Injectable()
 @Component({
     selector: 'app-login',
-    templateUrl: './login.component.html'
+    templateUrl: './login.component.html',
+    styles: [`
+        .display-4 {
+            font-size: 1.4rem;
+            line-height: 1.4;
+        }
+    `]
 })
 export class LoginComponent implements OnInit, OnDestroy {
     subscription: Subscription;

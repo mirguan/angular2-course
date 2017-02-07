@@ -8,8 +8,8 @@ import * as state from '../state';
 @Component({
     selector: 'app-header',
     template: `
-        <div fxLayout="row" fxLayoutWrap class="item-box p-2 m-1">
-            <div fxFlex="200px">
+        <div fxLayout="row" fxLayoutWrap class="item-box p-2 m-1 app-header">
+            <div fxFlex="150px">
                 <div fxLayout="row" fxLayoutWrap>
                     <div fxFlex="40px">
                         <img src="../../assets/icons/a2-course-36.png" alt="Angular2 Course App">
@@ -19,7 +19,7 @@ import * as state from '../state';
                     </div>                        
                 </div>
             </div>
-            <div fxFlex>
+            <div *ngIf="loggedIn | async" fxFlex>
                 <a routerLinkActive="active-link" [routerLinkActiveOptions]="{exact: true}" [routerLink]=" ['./courses'] ">
                 Courses
                 </a>
@@ -37,6 +37,9 @@ import * as state from '../state';
             margin-left: -6px;
             font-size: 1.5rem;
             line-height: 1.4;
+        }
+        .app-header {
+            background-color: #f0f2f5;
         }
     `]
 })
