@@ -14,6 +14,7 @@ export class CourseEffects {
     @Effect()
     load$: Observable<Action> = this.actions
         .ofType(course.LoadCourses.Type)
+        .startWith(new course.LoadCourses())
         .switchMap(() => this.courseService.load()
             .map(data => new course.LoadCoursesComplete(<Course[]>data))
         );

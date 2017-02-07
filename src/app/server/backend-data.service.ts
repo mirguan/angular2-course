@@ -57,7 +57,7 @@ export class BackendDataService {
     }
 
     getCourse(id: number): Course {
-        let items: Course[] = this.courses.filter(course => course.id === id)
+        let items: Course[] = this.courses.filter(course => course.id === id);
         if (items != null && items.length > 0) {
             return items[0];
         }
@@ -65,8 +65,8 @@ export class BackendDataService {
     }
 
     updateCourse(id: number, source: Course) {
-        let course = this.getCourse(id);
-        course = Object.assign({}, course, source);
+        let index = this.courses.findIndex(course => course.id === id);
+        this.courses[index] = source;
     }
 
     deleteCourse(id: number) {

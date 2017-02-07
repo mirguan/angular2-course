@@ -14,7 +14,7 @@ import * as state from '../../state';
 export class LoginComponent implements OnInit, OnDestroy {
     subscription: Subscription;
     user: User = new User();
-    loginForm: FormGroup;
+    form: FormGroup;
     errorMessage: Observable<string>;
     hasError: Observable<boolean>;
 
@@ -30,7 +30,7 @@ export class LoginComponent implements OnInit, OnDestroy {
                 }
             });
 
-        this.loginForm = this.fb.group({
+        this.form = this.fb.group({
             'login': ['', Validators.compose([Validators.required, Validators.pattern('^[a-zA-Z]+$')])],
             'password': ['', Validators.compose([Validators.required, Validators.pattern('^[0-9a-zA-Z]+$')])]
         });

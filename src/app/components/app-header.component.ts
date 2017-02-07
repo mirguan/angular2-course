@@ -20,7 +20,9 @@ import * as state from '../state';
                 </div>
             </div>
             <div fxFlex>
-                breadcrumb
+                <a routerLinkActive="active-link" [routerLinkActiveOptions]="{exact: true}" [routerLink]=" ['./courses'] ">
+                Courses
+                </a>
             </div>
             <div *ngIf="loggedIn | async" fxFlex="120px">
                 <app-login-pane 

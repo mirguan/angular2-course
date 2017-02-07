@@ -38,6 +38,7 @@ export const getCoursesLoading = createSelector(getCourseState, course.getLoadin
 export const getCourses = createSelector(getCourseState, course.getCourses);
 export const getSelectedCourseId = createSelector(getCourseState, course.getSelectedCourseId);
 export const getSelectedCourse = createSelector(getCourseState, course.getSelectedCourse);
+export const getSelectedCourseStatus = createSelector(getCourseState, course.getSelectedCourseStatus);
 export const getCourseQuery = createSelector(getCourseState, course.getQuery);
 
 export const getErrorState = (state: AppState) => state.error;

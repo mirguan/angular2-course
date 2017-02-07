@@ -1,4 +1,4 @@
-﻿import { BrowserModule } from '@angular/platform-browser';
+﻿﻿import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
@@ -9,7 +9,7 @@ import { MockBackend } from '@angular/http/testing';
 import { StoreModule } from '@ngrx/store';
 import { EffectsModule } from '@ngrx/effects';
 
-import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 import { AppConfigService, AppComponent, appRoutes } from './';
 
@@ -22,6 +22,7 @@ import { ComponentsModule } from './components';
 import { AppHeaderComponent } from './components/app-header.component';
 import { PageNotFoundComponent } from './components/page-not-found.component';
 import { ReadMoreComponent } from './components/read-more.component';
+import { ModalContentComponent } from './components/course/course-edit.component';
 
 import * as login from './components/login';
 
@@ -47,8 +48,10 @@ import { backendMockFactory } from './server/backend.provider';
         courses.CourseListItemsComponent,
         courses.CourseSearchComponent,
 
-        login.LoginPaneComponent
+        login.LoginPaneComponent,
+        ModalContentComponent
     ],
+    entryComponents: [ModalContentComponent],
     imports: [
         BrowserModule,
         FormsModule,

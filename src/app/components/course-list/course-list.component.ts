@@ -24,8 +24,6 @@ export class CourseListComponent {
         this.searchQuery = store.select(state.getCourseQuery);
         this.courses = store.select(state.getCourses);
         this.loading = store.select(state.getCoursesLoading);
-
-        this.store.dispatch(new state.LoadCourses());
     }
 
     search(query: string) {

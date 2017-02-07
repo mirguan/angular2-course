@@ -30,11 +30,11 @@ export class SelectCourse implements Action {
     constructor(public payload: string) { }
 }
 
-export class CleanCourseSelection implements Action {
+export class CancelCourseSelection implements Action {
     static Type = action('[Course] Clean Selection');
 
-    type = CleanCourseSelection.Type;
-    constructor(public payload: string) { }
+    type = CancelCourseSelection.Type;
+    constructor() { }
 }
 
 export class SaveCourse implements Action {
@@ -98,5 +98,5 @@ export type CourseActions
     | GetCourse | SaveCourse
     | DeleteCourse | DeleteCourseSuccess
     | LoadCourses | LoadCoursesComplete
-    | SelectCourse| CleanCourseSelection
+    | SelectCourse| CancelCourseSelection
     | SearchCourses| SearchCoursesComplete;
