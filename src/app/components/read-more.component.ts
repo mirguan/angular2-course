@@ -5,7 +5,7 @@ import { Component, Input, ElementRef, OnChanges  } from '@angular/core';
     template: `
         <div [innerHTML]="currentText">
         </div>
-        <a [class.hidden]="hideToggle" class="btn btn-outline-secondary btn-toggle" (click)="toggleView()">Read {{isCollapsed? 'more':'less'}}</a>
+        <a *ngIf="!hideToggle" class="btn btn-outline-secondary btn-toggle" (click)="toggleView()">Read {{isCollapsed? 'more':'less'}}</a>
     `,
     styles: [`
         .btn-toggle {
@@ -40,7 +40,7 @@ export class ReadMoreComponent implements OnChanges  {
             this.hideToggle = true;
             return;
         }
-        // this.hideToggle = false;
+        this.hideToggle = false;
 
         this.currentText = this.isCollapsed
             ? this.text.substring(0, this.maxLength) + '...'

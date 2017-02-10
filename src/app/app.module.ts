@@ -13,7 +13,7 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 import { AppConfigService, AppComponent, appRoutes } from './';
 
-import { LoginService, CourseService } from './services';
+import { LoginService, CourseService, AuthorService } from './services';
 
 import { appReducer, CourseEffects, LoginEffects, AppEffects } from './state';
 import { PipesModule } from './common/pipes';
@@ -41,8 +41,8 @@ import { backendMockFactory } from './server/backend.provider';
         course.CourseListItemComponent,
         course.CourseListItemAuthorsComponent,
         course.CourseEditComponent,
-        course.CourseSelectedComponent,
         course.CourseComponent,
+        course.CourseAuthorsEditComponent,
 
         courses.CourseListComponent,
         courses.CourseListItemsComponent,
@@ -70,6 +70,7 @@ import { backendMockFactory } from './server/backend.provider';
         AppConfigService,
         LoginService,
         CourseService,
+        AuthorService,
         BaseRequestOptions,
         MockBackend,
         {

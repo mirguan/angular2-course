@@ -6,7 +6,7 @@ import { Component, ChangeDetectionStrategy } from '@angular/core';
     template: `
         <h2>404: Not Found</h2>
         <p>Course doesn't exist yet.</p>
-        <p><a [routerLink]="['/courses']">Return to Home</a></p>
+        <p><a [routerLink]="['/courses']">Return Home</a></p>
     `,
     styles: [`
         :host {

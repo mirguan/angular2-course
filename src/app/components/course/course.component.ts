@@ -4,7 +4,6 @@ import { ActivatedRoute } from '@angular/router';
 import { Store } from '@ngrx/store';
 import '@ngrx/core/add/operator/select';
 import { Observable, Subscription } from 'rxjs';
-import { NgbModal, NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import * as state from '../../state';
 import * as course from '../../state/course';
 
@@ -13,7 +12,6 @@ import * as course from '../../state/course';
     selector: 'app-course-placeholder',
     changeDetection: ChangeDetectionStrategy.OnPush,
     template: `
-        <button class="btn btn-primary" (click)="cancel()">Return</button>
         <app-course-edit></app-course-edit>
     `
 })
@@ -43,9 +41,5 @@ export class CourseComponent implements OnDestroy {
         this.actionsSubscription.unsubscribe();
         this.subscription.unsubscribe();
         this.store.dispatch(new state.SelectCourse(null));
-    }
-
-    cancel() {
-        Observable.fromPromise(this.router.navigate(['../'], {relativeTo: this.route}));
     }
 }

@@ -1,26 +1,16 @@
 import { Injectable } from '@angular/core';
-import { Http, Response, Headers, RequestOptions } from '@angular/http';
+import { Http, Response } from '@angular/http';
 import { Observable } from 'rxjs';
 import { Store } from '@ngrx/store';
 import { AppConfigService } from '../app.config.service';
 import * as state from '../state';
-import { getLoggedUser } from '../state/app.reducers';
-import { Course, User } from '../models';
+import { Course  } from '../models';
+import { BaseService } from './base.service';
 
 @Injectable()
-export class CourseService  {
-    options: RequestOptions;
-
-    constructor(private config: AppConfigService, private http: Http, private store: Store<state.AppState>) {
-        this.store.select(getLoggedUser)
-            .filter(user => !!user && !!user.token)
-            .subscribe((user: User) => {
-                let headers: Headers = new Headers();
-                headers.append('Content-Type', 'Bearer ' + 'application/json');
-                headers.append('Authorization', 'Bearer ' + user.token);
-
-                this.options = new RequestOptions({ headers: headers });
-            });
+export class CourseService extends BaseService {
+    constructor(config: AppConfigService, http: Http, store: Store<state.AppState>) {
+        super(config, http, store);
     }
 
     load(): Observable<Course[]> {

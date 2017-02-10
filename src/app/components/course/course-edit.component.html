@@ -4,49 +4,63 @@
     <input type="hidden" [formControl]="form.controls['createDate']"/>
     <input type="hidden" [formControl]="form.controls['authors']"/>
     <div class="container form-group">
-        <div class="row justify-content-md-center" *ngIf="hasError | async">
-            <div class="col-6 alert alert-danger" role="alert">
+        <div class="row form-group  justify-content-md-center" *ngIf="hasError | async">
+            <div class="col-10 alert alert-danger" role="alert">
                 {{errorMessage | async }}
             </div>
         </div>
-        <div class="row justify-content-md-center">
+        <div class="row form-group justify-content-md-center">
             <div class="col-2">
                 <label for="title" class="col-form-label">Title </label>
             </div>
-            <div class="col-4">
+            <div class="col-6">
                 <input type="text" id="title" class="form-control" placeholder="Title" [formControl]="form.controls['title']" autofocus/>
             </div>
+            <div class="col-2">
+            </div>
         </div>
-        <div class="row justify-content-md-center">
+        <div class="row form-group justify-content-md-center">
             <div class="col-2">
                 <label for="description" class="col-form-label">Description </label>
             </div>
-            <div class="col-4">
-                <textarea id="description" class="form-control" placeholder="Description" [formControl]="form.controls['description']">
+            <div class="col-8">
+                <textarea id="description" rows="4" class="form-control" placeholder="Description" [formControl]="form.controls['description']">
                 </textarea>
             </div>
         </div>
-        <div class="row justify-content-md-center">
+        <div class="row form-group justify-content-md-center">
             <div class="col-2">
                 <label for="createDate" class="col-form-label">Create Date </label>
             </div>
             <div class="col-4">
                 <input type="date" id="createDate" class="form-control" [formControl]="form.controls['createDate']"/>
             </div>
+            <div class="col-4">
+            </div>
         </div>
-        <div class="row justify-content-md-center">
+        <div class="row form-group justify-content-md-center">
             <div class="col-2">
                 <label for="duration" class="col-form-label">Duration </label>
             </div>
             <div class="col-2">
                 <input type="number" id="duration" class="form-control" [formControl]="form.controls['duration']"/>
             </div>
-            <div class="col-2">
+            <div class="col-6">
                 {{ form.controls['duration'].value | duration}}
             </div>
         </div>
-        <div class="row justify-content-md-center">
-            <div class="col-6">
+        <div class="row form-group justify-content-md-center">
+            <div class="col-2">
+                <label for="duration" class="col-form-label">Authors </label>
+            </div>
+            <div class="col-7">
+                <app-course-authors-edit [authors]="this.authors | async" (update)="update$($event)"></app-course-authors-edit>
+            </div>
+            <div class="col-1">
+            </div>
+        </div>
+        <div class="row form-group justify-content-md-center">
+            <div class="col-10">
                 <button class="btn btn-primary" type="submit">Save</button>
                 <button class="btn btn-secondary" (click)="cancel($event);">Cancel</button>
             </div>

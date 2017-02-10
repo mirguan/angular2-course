@@ -7,6 +7,9 @@ import * as moment from 'moment/moment';
 import * as state from '../../state';
 import { Course } from '../../models/course';
 import { NgbModal, NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
+import { AuthorService } from '../../services/author.service';
+import { Author } from '../../models/author';
+import { ReplaySubject } from 'rxjs/ReplaySubject';
 
 
 @Component({
@@ -39,14 +42,17 @@ export class ModalContentComponent {
     templateUrl:  './course-edit.component.html'
 })
 export class CourseEditComponent {
-    @Input() course: Course;
+    course: Observable<Course>;
 
-    subscription: Subscription;
     errorMessage: Observable<string>;
     hasError: Observable<boolean>;
     form: FormGroup;
+    authors: Observable<Author[][]>;
+    data: ReplaySubject<Author[]> = new ReplaySubject<Author[]>(1);
+    loadedAuthors: Observable<Author[]>;
 
-    constructor(private router: Router, private store: Store<state.AppState>, private route: ActivatedRoute, private fb: FormBuilder, private modalService: NgbModal) {
+    constructor(private router: Router, private store: Store<state.AppState>, private route: ActivatedRoute,
+                private fb: FormBuilder, private modalService: NgbModal, private authorService: AuthorService) {
         this.form = this.fb.group({
             'id': [0],
             'title': ['', Validators.compose([Validators.required])],
@@ -56,8 +62,13 @@ export class CourseEditComponent {
             'authors': [[], Validators.compose([Validators.required])]
         });
 
-        this.subscription = store.select(state.getSelectedCourse).
+        this.course = store.select(state.getSelectedCourse);
+
+        let subscription = this.course.
             subscribe(item => {
+
+                this.data.next(item.authors);
+
                 if (item && item.id) {
                     this.form.controls['id'].setValue(item.id);
                     this.form.controls['title'].setValue(item.title);
@@ -73,8 +84,12 @@ export class CourseEditComponent {
                     this.form.controls['createDate'].setValue(moment.utc(Date.now()).format('YYYY-MM-DD'));
                     this.form.controls['authors'].setValue([]);
                 }
-            });
-        this.subscription.unsubscribe();
+            })
+            ;
+        subscription.unsubscribe();
+
+        this.loadedAuthors = this.course.mergeMap(course => this.loadAuthors());
+        this.authors = this.data.mergeMap(data => this.getAuthors(data));
 
         this.errorMessage = this.store.select(state.getErrorMessage);
         this.hasError = this.store.select(state.getHasError);
@@ -124,5 +139,28 @@ export class CourseEditComponent {
     cancel(event) {
         this.store.dispatch(new state.CancelCourseSelection());
         event.preventDefault();
+    }
+
+    private getAuthors(data: Author[]): Observable<Author[][]> {
+        return this.loadedAuthors.first()
+            .do(items => items)
+            .map(items => {
+                let result: Author[] = [];
+                for (let item of items) {
+                    if (data.findIndex(author => author.id === item.id) === -1) {
+                        result.push(item);
+                    }
+                }
+                return [data, result];
+            });
+    }
+
+    private loadAuthors(): Observable<Author[]> {
+        return this.authorService.load();
+    }
+
+    update$(data) {
+        this.form.controls['authors'].setValue(data);
+        this.data.next(data);
     }
 }

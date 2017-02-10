@@ -9,17 +9,14 @@ import * as state from '../state';
     selector: 'app-header',
     template: `
         <div fxLayout="row" fxLayoutWrap class="item-box p-2 m-1 app-header">
-            <div fxFlex="150px">
+            <div fxFlex="46px">
                 <div fxLayout="row" fxLayoutWrap>
                     <div fxFlex="40px">
                         <img src="../../assets/icons/a2-course-36.png" alt="Angular2 Course App">
                     </div>
-                    <div fxFlex>
-                        <span class="display-4">Courses</span>
-                    </div>                        
                 </div>
             </div>
-            <div *ngIf="loggedIn | async" fxFlex>
+            <div *ngIf="loggedIn | async" fxFlex fxLayoutAlign="left center">
                 <a routerLinkActive="active-link" [routerLinkActiveOptions]="{exact: true}" [routerLink]=" ['./courses'] ">
                 Courses
                 </a>
