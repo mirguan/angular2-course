@@ -29,6 +29,8 @@ import * as login from './components/login';
 import * as course from './components/course';
 import * as courses from './components/course-list';
 
+import { AppBreadcrumbComponent } from './common/breadcrumb';
+
 import { backendMockFactory } from './server/backend.provider';
 
 @NgModule({
@@ -49,6 +51,8 @@ import { backendMockFactory } from './server/backend.provider';
         courses.CourseSearchComponent,
 
         login.LoginPaneComponent,
+
+        AppBreadcrumbComponent,
         ModalContentComponent
     ],
     entryComponents: [ModalContentComponent],

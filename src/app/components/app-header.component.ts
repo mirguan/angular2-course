@@ -8,7 +8,7 @@ import * as state from '../state';
 @Component({
     selector: 'app-header',
     template: `
-        <div fxLayout="row" fxLayoutWrap class="item-box p-2 m-1 app-header">
+        <div fxLayout="row" fxLayoutWrap class="item-box app-header">
             <div fxFlex="46px">
                 <div fxLayout="row" fxLayoutWrap>
                     <div fxFlex="40px">
@@ -17,9 +17,7 @@ import * as state from '../state';
                 </div>
             </div>
             <div *ngIf="loggedIn | async" fxFlex fxLayoutAlign="left center">
-                <a routerLinkActive="active-link" [routerLinkActiveOptions]="{exact: true}" [routerLink]=" ['./courses'] ">
-                Courses
-                </a>
+                <app-breadcrumb></app-breadcrumb>
             </div>
             <div *ngIf="loggedIn | async" fxFlex="120px">
                 <app-login-pane 
@@ -37,6 +35,9 @@ import * as state from '../state';
         }
         .app-header {
             background-color: #f0f2f5;
+            padding-top: 0.3rem!important;
+            padding-left: 0!important;
+            padding-right: 0!important;
         }
     `]
 })
@@ -52,6 +53,5 @@ export class AppHeaderComponent {
     logout(user: User) {
         this.store.dispatch(new state.Logout());
     }
-
 }
 

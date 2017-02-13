@@ -10,10 +10,25 @@ import { Course } from '../../models/course';
     selector: 'app-course-list',
     changeDetection: ChangeDetectionStrategy.OnPush,
     template: `
-        <app-course-search [query]="searchQuery | async" [searching]="loading | async" (search)="search($event)"></app-course-search>
-        <button type="button" (click)="add()">Add Course</button>
+        <div fxLayout="row" fxLayoutWrap class="item-box">
+            <div fxFlex class="search-box">
+                <app-course-search [query]="searchQuery | async" [searching]="loading | async" (search)="search($event)"></app-course-search>
+            </div>
+            <div fxFlex="140px">
+                <button type="button" class="btn btn-primary btn-block" (click)="add()">Add Course</button>
+            </div>
+        </div>    
         <app-course-list-items [courses]="courses | async"></app-course-list-items>
-    `
+    `,
+    styles: [`
+        .item-box {
+            margin-top: 0.3rem;
+            margin-bottom: 0.3rem;
+        }
+        .search-box {
+            margin-right: 0.3rem;
+        }
+    `]
 })
 export class CourseListComponent {
     searchQuery: Observable<string>;

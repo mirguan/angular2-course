@@ -14,7 +14,7 @@ import { User } from '../../models/user';
                 </div>
             </div>
             <div fxFlex="74px" class="ml-2 mt-1">
-                <button type="button" class="btn btn-primary btn-sm" (click)="logout.emit(user)">Logout</button>
+                <button type="button" class="btn btn-secondary btn-sm" (click)="logout.emit(user)">Logout</button>
             </div>
         </div>
     `,
