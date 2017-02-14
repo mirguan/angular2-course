@@ -1,12 +1,12 @@
 ﻿import { Author } from './author';
 
 export class Course {
-    id: number;
-    title: string;
-    description: string;
-    createDate: Date;
-    duration: number;
-    authors: Author[] = [];
+    public id: number;
+    public title: string;
+    public description: string;
+    public createDate: Date;
+    public duration: number;
+    public authors: Author[] = [];
 
     constructor(values: Object = {}) {
         Object.assign(this, values);

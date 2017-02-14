@@ -41,6 +41,18 @@ export const getSelectedCourse = createSelector(getCourseState, course.getSelect
 export const getSelectedCourseStatus = createSelector(getCourseState, course.getSelectedCourseStatus);
 export const getCourseQuery = createSelector(getCourseState, course.getQuery);
 
+export const getQueriedCourses = createSelector(getCourses, getCourseQuery, (courses, query) => {
+    if (query === null || query.length === 0) {
+        return courses;
+    }
+
+    let regexp: RegExp = new RegExp(query, 'i');
+
+    return courses.filter(course => {
+        return course.title.search(regexp) > -1 || course.description.search(regexp) > -1;
+    } );
+});
+
 export const getErrorState = (state: AppState) => state.error;
 export const getErrorMessage = createSelector(getErrorState, error.getErrorMessage);
 export const getHasError = createSelector(getErrorState, error.getHasError);

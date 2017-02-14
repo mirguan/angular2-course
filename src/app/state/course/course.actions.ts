@@ -86,17 +86,10 @@ export class SearchCourses implements Action {
     constructor(public payload: string) { }
 }
 
-export class SearchCoursesComplete implements Action {
-    static Type = action('[Course] Search Complete');
-
-    type = SearchCoursesComplete.Type;
-    constructor(public payload: Course[]) { }
-}
-
 export type CourseActions
     = AddCourse | AddCourseSuccess
     | GetCourse | SaveCourse
     | DeleteCourse | DeleteCourseSuccess
     | LoadCourses | LoadCoursesComplete
     | SelectCourse| CancelCourseSelection
-    | SearchCourses| SearchCoursesComplete;
+    | SearchCourses;

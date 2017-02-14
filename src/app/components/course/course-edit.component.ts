@@ -1,8 +1,8 @@
 import { Component, Input } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { AbstractControl, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Store } from '@ngrx/store';
-import { Observable, Subscription } from 'rxjs';
+import { Observable } from 'rxjs';
 import * as moment from 'moment/moment';
 import * as state from '../../state';
 import { Course } from '../../models/course';
@@ -51,13 +51,21 @@ export class CourseEditComponent {
     data: ReplaySubject<Author[]> = new ReplaySubject<Author[]>(1);
     loadedAuthors: Observable<Author[]>;
 
+    static positive(control: AbstractControl): { [key: string]: any; } {
+        if (Number(control.value) < 0) {
+            return {positive: true};
+        } else {
+            return null;
+        }
+    }
+
     constructor(private router: Router, private store: Store<state.AppState>, private route: ActivatedRoute,
                 private fb: FormBuilder, private modalService: NgbModal, private authorService: AuthorService) {
         this.form = this.fb.group({
             'id': [0],
             'title': ['', Validators.compose([Validators.required])],
             'description': ['', Validators.compose([Validators.required])],
-            'duration': [0, Validators.compose([Validators.required])],
+            'duration': [0, Validators.compose([Validators.required, CourseEditComponent.positive])],
             'createDate': ['', Validators.compose([Validators.required])],
             'authors': [[], Validators.compose([Validators.required])]
         });
@@ -127,6 +135,10 @@ export class CourseEditComponent {
 
         if (this.form.controls['duration'].hasError('required')) {
             result.push('Duration is required');
+        }
+
+        if (this.form.controls['duration'].hasError('positive')) {
+            result.push('Duration is positive');
         }
 
         if (this.form.controls['authors'].hasError('required')) {

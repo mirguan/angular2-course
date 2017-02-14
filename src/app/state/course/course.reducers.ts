@@ -72,10 +72,7 @@ export const reducer:  ActionReducer<CourseState> = (state: CourseState = initia
             return Object.assign({}, state, { selectedCourseStatus: CourseStatus.Cancel });
 
         case course.SearchCourses.Type:
-            return Object.assign({}, state, { loading: true, query: (<course.SearchCourses>action).payload});
-
-        case course.SearchCoursesComplete.Type:
-            return Object.assign({}, state, { loading: false, courses: (<course.LoadCoursesComplete>action).payload });
+            return Object.assign({}, state, { query: (<course.SearchCourses>action).payload});
 
         default:
             return state;

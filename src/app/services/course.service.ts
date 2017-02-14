@@ -20,7 +20,12 @@ export class CourseService extends BaseService {
 
     add(course: Course): Observable<Course> {
         return this.http.post(`${this.config.apiUrl}/courses`, JSON.stringify(course), this.options)
-            .map((response: Response) => course);
+            .map((response: Response) => {
+                if (!response.ok) {
+                    throw new Error(`Error state: '${response.status}'`);
+                }
+                return Object.assign({}, course, {id: response.json()});
+            });
     }
 
     get(id: number): Observable<Course> {

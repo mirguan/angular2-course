@@ -1,9 +1,9 @@
-import { Component, Input, ElementRef, OnChanges  } from '@angular/core';
+import {Component, Input, ElementRef, OnChanges, AfterViewChecked} from '@angular/core';
 
 @Component({
     selector: 'app-read-more',
     template: `
-        <div [innerHTML]="currentText">
+        <div [innerHTML]="currentText" appHighlight [keyword]="keyword">
         </div>
         <a *ngIf="!hideToggle" class="btn btn-outline-secondary btn-toggle" (click)="toggleView()">Read {{isCollapsed? 'more':'less'}}</a>
     `,
@@ -16,9 +16,10 @@ import { Component, Input, ElementRef, OnChanges  } from '@angular/core';
         }
     `]
 })
-export class ReadMoreComponent implements OnChanges  {
+export class ReadMoreComponent implements OnChanges {
     @Input() text: string;
     @Input() maxLength = 100;
+    @Input() keyword: string;
 
     currentText: string;
     hideToggle = true;

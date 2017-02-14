@@ -38,6 +38,7 @@ import * as state from '../state';
             padding-top: 0.3rem!important;
             padding-left: 0!important;
             padding-right: 0!important;
+            margin-bottom: 0.3rem!important;
         }
     `]
 })

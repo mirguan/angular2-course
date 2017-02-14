@@ -12,7 +12,7 @@ import { Course } from '../../models/course';
     template: `
         <div fxLayout="row" fxLayoutWrap class="item-box">
             <div fxFlex class="search-box">
-                <app-course-search [query]="searchQuery | async" [searching]="loading | async" (search)="search($event)"></app-course-search>
+                <app-course-search [query]="searchQuery | async" (search)="search($event)"></app-course-search>
             </div>
             <div fxFlex="140px">
                 <button type="button" class="btn btn-primary btn-block" (click)="add()">Add Course</button>
@@ -37,7 +37,7 @@ export class CourseListComponent {
 
     constructor(private router: Router, private store: Store<state.AppState>) {
         this.searchQuery = store.select(state.getCourseQuery);
-        this.courses = store.select(state.getCourses);
+        this.courses = store.select(state.getQueriedCourses);
         this.loading = store.select(state.getCoursesLoading);
     }
 

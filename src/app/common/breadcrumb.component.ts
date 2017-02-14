@@ -1,4 +1,4 @@
-import {Component, Injectable} from '@angular/core';
+import { Component, Injectable } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
 import { isUndefined } from 'util';
@@ -36,10 +36,6 @@ export class AppBreadcrumbComponent {
         this.selectedCourseExists = this.selectedCourse
             .map(course => course != null)
             .switchMap(exists => { return Observable.of(exists); });
-
-        this.selectedCourseExists.subscribe(exists => {
-            console.log(exists);
-        });
 
         this.selectedCourseName = this.selectedCourse
             .filter(course => course != null)

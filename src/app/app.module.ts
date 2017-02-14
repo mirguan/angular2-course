@@ -29,7 +29,8 @@ import * as login from './components/login';
 import * as course from './components/course';
 import * as courses from './components/course-list';
 
-import { AppBreadcrumbComponent } from './common/breadcrumb';
+import { AppBreadcrumbComponent } from './common/breadcrumb.component';
+import { HighlightDirective } from './common/highlight.directive';
 
 import { backendMockFactory } from './server/backend.provider';
 
@@ -39,6 +40,7 @@ import { backendMockFactory } from './server/backend.provider';
         AppHeaderComponent,
         PageNotFoundComponent,
         ReadMoreComponent,
+        HighlightDirective,
 
         course.CourseListItemComponent,
         course.CourseListItemAuthorsComponent,
